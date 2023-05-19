@@ -5,11 +5,11 @@ import Header from "./components/Header";
 
 function App() {
   return (
-    <>
+    <div className="virtual_agent">
       <Header />
       <Conversation />
       <Footer />
-    </>
+    </div>
   );
 }
 
