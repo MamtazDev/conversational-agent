@@ -1,8 +1,34 @@
 import aiFace from "../assets/ai-face.png";
 import user from "../assets/user.png";
 import send from "../assets/send.png";
+import { useRef, useState } from "react";
 
 const Conversation = () => {
+  const [text, setText] = useState("");
+  const textareaRef = useRef(null);
+
+  const maxRows = 4; // Maximum number of rows allowed
+  const lineHeight = 20; // Line height of the textarea
+
+  const handleChange = (event) => {
+    setText(event.target.value);
+    adjustTextareaHeight();
+  };
+
+  const adjustTextareaHeight = () => {
+    if (textareaRef.current) {
+      const rowCount = textareaRef.current.value.split("\n").length;
+      const calculatedHeight = rowCount * lineHeight;
+
+      if (rowCount > maxRows) {
+        textareaRef.current.style.overflowY = "auto";
+        textareaRef.current.style.height = `${maxRows * lineHeight}px`;
+      } else {
+        textareaRef.current.style.overflowY = "hidden";
+        textareaRef.current.style.height = `${calculatedHeight}px`;
+      }
+    }
+  };
   return (
     <div className="conversation">
       <div className="container">
@@ -25,7 +51,12 @@ const Conversation = () => {
         </div>
 
         <div className="user_input">
-          <textarea placeholder="Type your question here.... (Scribe tu pregunta aqui....)"></textarea>
+          <textarea
+            ref={textareaRef}
+            value={text}
+            onChange={handleChange}
+            placeholder="Type your question here.... (Scribe tu pregunta aqui....)"
+          />
 
           <button>
             <img src={send} alt="" />

@@ -137,7 +137,6 @@ body {
   background: #EFEFEF;
   max-height: 200px;
   height: 22px;
-  /* height: auto; */
   overflow-y: hidden;
   resize: none;
   width: 100%;
@@ -155,6 +154,10 @@ body {
 
 .conversation .user_input textarea:focus-visible {
   outline: none !important;
+}
+
+.conversation .user_input textarea::-webkit-scrollbar {
+  display: none;
 }
 
 .conversation .user_input button {
@@ -213,6 +216,22 @@ body {
   border-radius: 8px;
   padding: 15px 36px;
   color: #35255C;
+}
+
+@media screen and (max-width:991px) {
+
+  .footer .footer_inner,
+  .footer .btn_group {
+    flex-direction: column;
+  }
+
+  .footer .btn_group {
+    gap: 20px;
+  }
+
+  .footer .footer_inner {
+    gap: 20px;
+  }
 }
 
 @media screen and (max-width:667px) {
