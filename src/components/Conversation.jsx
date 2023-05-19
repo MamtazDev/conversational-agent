@@ -1,5 +1,5 @@
-import React from "react";
-import aiFace from "../assets/ai-face.png";
+
+import aiFace from "../assets/favicon.png";
 import user from "../assets/user.png";
 
 const Conversation = () => {

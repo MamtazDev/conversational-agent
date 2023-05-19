@@ -1,4 +1,4 @@
-import React from "react";
+
 import logo from "../assets/logo.png";
 import close from "../assets/close.png";
 import arrow from "../assets/down-arrow.png";
