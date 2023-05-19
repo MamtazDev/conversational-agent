@@ -1,4 +1,4 @@
-import aiFace from "../assets/favicon.png";
+import aiFace from "../assets/ai-face.png";
 import user from "../assets/user.png";
 import send from "../assets/send.png";
 

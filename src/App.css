@@ -23,7 +23,6 @@ body {
 
 .virtual_agent {
   height: 100vh;
-  background-color: rgb(235, 168, 168);
 }
 
 .container {
@@ -33,8 +32,6 @@ body {
 .header .container {
   max-width: 1268px;
 }
-
-
 
 .navbar {
   padding: 12px 0;
@@ -90,8 +87,6 @@ body {
 }
 
 
-
-
 .conversation .answer,
 .conversation .question {
   display: flex;
@@ -112,8 +107,6 @@ body {
 }
 
 .conversation .answer img {
-  width: 42px;
-  height: 42px;
   box-shadow: 0px 4px 24px -8px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
 }
@@ -144,12 +137,14 @@ body {
   background: #EFEFEF;
   max-height: 200px;
   height: 22px;
+  /* height: auto; */
   overflow-y: hidden;
   resize: none;
   width: 100%;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
+
 
 .conversation .user_input textarea::placeholder {
   font-weight: 400;
@@ -221,7 +216,19 @@ body {
 }
 
 @media screen and (max-width:667px) {
-  .header .header_buttons {
+
+  .header .header_buttons,
+  .footer .footer_inner,
+  .footer .btn_group {
     flex-direction: column;
   }
+
+  .footer .btn_group {
+    gap: 20px;
+  }
+
+  .footer .footer_inner {
+    gap: 20px;
+  }
+
 }
