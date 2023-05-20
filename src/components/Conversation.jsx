@@ -146,31 +146,30 @@ const Conversation = () => {
         {display && (
           <>
             <div className="chatting">
-              {vassHistory.length &&
-                vassHistory.map((chat, index) => (
-                  <div key={index}>
-                    <div className="answer">
-                      <img src={aiFace} alt="" />
-                      <p>{chat.answer}</p>
-                      <div className="reaction">
-                        <img
-                          onClick={handleLike}
-                          src={isLiked ? liked : like}
-                          alt=""
-                        />
-                        <img
-                          onClick={handleDislike}
-                          src={isDisliked ? disliked : dislike}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="question">
-                      <p>{chat.question}</p>
-                      <img src={user} alt="" />
+              {vassHistory.map((chat, index) => (
+                <div key={index}>
+                  <div className="answer">
+                    <img src={aiFace} alt="" />
+                    <p>{chat.answer}</p>
+                    <div className="reaction">
+                      <img
+                        onClick={handleLike}
+                        src={isLiked ? liked : like}
+                        alt=""
+                      />
+                      <img
+                        onClick={handleDislike}
+                        src={isDisliked ? disliked : dislike}
+                        alt=""
+                      />
                     </div>
                   </div>
-                ))}
+                  <div className="question">
+                    <p>{chat.question}</p>
+                    <img src={user} alt="" />
+                  </div>
+                </div>
+              ))}
             </div>
             <div className="input_field">
               <div className="user_input">
