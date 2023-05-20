@@ -1,6 +1,8 @@
 import aiFace from "../assets/ai-face.png";
 import user from "../assets/user.png";
 import send from "../assets/send.png";
+import like from "../assets/like.png";
+import dislike from "../assets/dislike.png";
 import { useRef, useState } from "react";
 
 const Conversation = () => {
@@ -39,8 +41,12 @@ const Conversation = () => {
                 <img src={aiFace} alt="" />
                 <p>
                   Welcome to VA Chat. I’m your personal assistant ot the company
-                  and its service. How may I help you today?
+                  and its service. How may I help you today? 
                 </p>
+                <div className="reaction">
+                  <img src={like} alt="" />
+                  <img src={dislike} alt="" />
+                </div>
               </div>
               <div className="question">
                 <p>Do you provide me consulting services? Which ones?</p>

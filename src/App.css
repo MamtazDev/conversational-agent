@@ -105,10 +105,21 @@ body {
   margin-bottom: 24px;
 }
 
+.conversation .answer {
+  position: relative;
+}
+
+.conversation .answer .reaction {
+  position: absolute;
+  right: 40px;
+  display: flex;
+  gap: 16px;
+}
+
 .conversation .answer p {
   background: linear-gradient(180deg, #5B5BE5 0%, #6240B1 100%);
   border-radius: 8px 16px 16px 8px;
-  padding: 18px 40px;
+  padding: 18px  140px 18px 40px;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
