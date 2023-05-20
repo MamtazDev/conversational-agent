@@ -79,6 +79,10 @@ div#root {
 
 }
 
+.dropdown-menu.show {
+  width: 100%;
+}
+
 .dropdown-toggle::after {
   display: none !important;
 }
@@ -219,6 +223,10 @@ div#root {
 }
 
 .conversation .user_input textarea::-webkit-scrollbar {
+  display: none;
+}
+
+body::-webkit-scrollbar {
   display: none;
 }
 
