@@ -49,18 +49,19 @@ const Conversation = () => {
             </div>
           ))}
         </div>
+        <div className="input_field">
+          <div className="user_input">
+            <textarea
+              ref={textareaRef}
+              value={text}
+              onChange={handleChange}
+              placeholder="Type your question here.... (Scribe tu pregunta aqui....)"
+            />
 
-        <div className="user_input">
-          <textarea
-            ref={textareaRef}
-            value={text}
-            onChange={handleChange}
-            placeholder="Type your question here.... (Scribe tu pregunta aqui....)"
-          />
-
-          <button>
-            <img src={send} alt="" />
-          </button>
+            <button>
+              <img src={send} alt="" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
