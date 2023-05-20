@@ -90,7 +90,6 @@ body {
 .conversation .chatting {
   flex-grow: 1;
   overflow-y: auto;
-  margin-bottom: 40px;
 }
 
 .conversation .chatting::-webkit-scrollbar {
@@ -140,6 +139,7 @@ body {
   background-color: white;
   bottom: 73px;
   padding: 30px 0;
+
 }
 
 .conversation .user_input {
@@ -246,6 +246,9 @@ body {
 }
 
 @media screen and (max-width:991px) {
+  .conversation .input_field {
+    bottom: 265px;
+  }
 
   .footer .footer_inner,
   .footer .btn_group {
