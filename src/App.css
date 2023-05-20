@@ -19,16 +19,22 @@ p {
 body {
   font-family: 'Inter', sans-serif;
   font-style: normal;
-  height: 100vh;
   margin: 0;
   padding: 0;
+}
+
+div#root {
+  height: 100vh;
 }
 
 .virtual_agent {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 100%;
+
 }
+
 
 .container {
   max-width: 1330px;
@@ -87,6 +93,37 @@ body {
   width: 40px;
 }
 
+.conversation {
+  position: relative;
+}
+
+/* .conversation .sms_icon {
+  position: absolute;
+  bottom: 40px;
+  right: 0;
+} */
+@keyframes floating {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.conversation .sms_icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  animation: floating 2s ease-in-out infinite;
+  z-index: 2;
+}
+
 .conversation .chatting {
   flex-grow: 1;
   overflow-y: auto;
@@ -113,13 +150,14 @@ body {
   position: absolute;
   right: 40px;
   display: flex;
+  align-items: center;
   gap: 16px;
 }
 
 .conversation .answer p {
   background: linear-gradient(180deg, #5B5BE5 0%, #6240B1 100%);
   border-radius: 8px 16px 16px 8px;
-  padding: 18px  140px 18px 40px;
+  padding: 18px 140px 18px 40px;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
@@ -150,8 +188,8 @@ body {
   background-color: white;
   bottom: 73px;
   padding: 30px 0;
-
 }
+
 
 .conversation .user_input {
   background: #EFEFEF;

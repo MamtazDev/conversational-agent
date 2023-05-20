@@ -7,8 +7,10 @@ function App() {
   return (
     <div className="virtual_agent">
       <Header />
-      <Conversation />
-      <Footer />
+      <div>
+        <Conversation />
+        <Footer />
+      </div>
     </div>
   );
 }
