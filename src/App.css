@@ -97,11 +97,6 @@ div#root {
   position: relative;
 }
 
-/* .conversation .sms_icon {
-  position: absolute;
-  bottom: 40px;
-  right: 0;
-} */
 @keyframes floating {
   0% {
     transform: translateY(0);
@@ -165,7 +160,7 @@ div#root {
   width: 100%;
 }
 
-.conversation .answer img {
+.conversation .answer>img {
   box-shadow: 0px 4px 24px -8px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
 }

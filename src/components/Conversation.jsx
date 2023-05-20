@@ -1,16 +1,20 @@
 import aiFace from "../assets/ai-face.png";
 import user from "../assets/user.png";
 import send from "../assets/send.png";
+import liked from "../assets/liked.png";
 import like from "../assets/like.png";
+import disliked from "../assets/disliked.png";
 import dislike from "../assets/dislike.png";
 import messenger from "../assets/ai-face.png";
 import { useRef, useState } from "react";
 
 const Conversation = () => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
   const [vassHistory, setVaasHistory] = useState([]);
   const [newVassHistory, setNewVassHistory] = useState("");
   const [display, setDisplay] = useState(false);
-  const [text, setText] = useState("");
+  const [text, setText] = useState("why are you");
 
   const [vaasId, setVaasId] = useState(null);
 
@@ -20,7 +24,7 @@ const Conversation = () => {
   const lineHeight = 20; // Line height of the textarea
 
   const handleChange = (event) => {
-    // setText(event.target.value);
+    setText(event.target.value);
     setNewVassHistory(event.target.value);
     adjustTextareaHeight();
   };
@@ -60,28 +64,80 @@ const Conversation = () => {
   const handleUpdate = () => {
     const apiKey = "test-x0848bd789fjk13";
     // const vaasSid = "83b04e59fc7403b2848f279fa2722c73";
-    const question = "why are you";
+    const question = text;
 
     fetch("https://testenv.innobyteslab.com/vaas/history/", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "VAAS-API-Key": apiKey,
-        "vaas_sid": vaasId,
-        "question": question,
+        vaas_sid: vaasId,
+        question: question,
       },
       body: JSON.stringify({ data: newVassHistory }),
     })
       .then((response) => {
-     
-        console.log("Data updated successfully");
-        setVaasHistory(newVassHistory); 
-        setNewVassHistory(""); 
+        console.log("Data updated successfully", response);
+        setVaasHistory(response);
+        setNewVassHistory("");
       })
       .catch((error) => {
-     
         console.error("Error updating data:", error);
       });
+  };
+  const handleLike = () => {
+    const vaasSid = vaasId;
+    const question = "who are you";
+    const answer = "anything goes here";
+    const feedback = true;
+
+    fetch(
+      `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${feedback}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "VAAS-API-Key": "test-x0848bd789fjk13",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Like success:", data);
+      })
+      .catch((error) => {
+        console.error("Like error:", error);
+      });
+    // Update the UI state
+    setIsLiked(true);
+    setIsDisliked(false);
+  };
+  const handleDislike = () => {
+    const vaasSid = 89;
+    const question = "who are you";
+    const answer = "anything goes here";
+    const feedback = false;
+
+    fetch(
+      `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${feedback}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "VAAS-API-Key": "test-x0848bd789fjk13",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Dislike success:", data);
+      })
+      .catch((error) => {
+        console.error("Dislike error:", error);
+      });
+    // Update the UI state
+    setIsLiked(false);
+    setIsDisliked(true);
   };
 
   return (
@@ -97,8 +153,16 @@ const Conversation = () => {
                       <img src={aiFace} alt="" />
                       <p>{chat.answer}</p>
                       <div className="reaction">
-                        <img src={like} alt="" />
-                        <img src={dislike} alt="" />
+                        <img
+                          onClick={handleLike}
+                          src={isLiked ? liked : like}
+                          alt=""
+                        />
+                        <img
+                          onClick={handleDislike}
+                          src={isDisliked ? disliked : dislike}
+                          alt=""
+                        />
                       </div>
                     </div>
                     <div className="question">
