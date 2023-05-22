@@ -1,9 +1,8 @@
-
 import logo from "../assets/logo.png";
 import close from "../assets/close.png";
 import arrow from "../assets/down-arrow.png";
 
-const Header = () => {
+const Header = ({ display, setDisplay }) => {
   return (
     <div className="header">
       <div className="container">
@@ -41,10 +40,9 @@ const Header = () => {
                         Detailed Response
                       </a>
                     </li>
-                  
                   </ul>
                 </div>
-                <button className="close_btn">
+                <button onClick={() => setDisplay(false)} className="close_btn">
                   <img src={close} alt="" />
                 </button>
               </div>

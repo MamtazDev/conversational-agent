@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+import { useRef, useState } from "react";
+
 import aiFace from "../assets/ai-face.png";
 import user from "../assets/user.png";
 import send from "../assets/send.png";
@@ -6,18 +9,14 @@ import like from "../assets/like.png";
 import disliked from "../assets/disliked.png";
 import dislike from "../assets/dislike.png";
 import messenger from "../assets/ai-face.png";
-import { useRef, useState } from "react";
 
-const Conversation = () => {
+const Conversation = ({display,setDisplay}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const [vassHistory, setVaasHistory] = useState([]);
   const [newVassHistory, setNewVassHistory] = useState("");
-  const [display, setDisplay] = useState(false);
   const [text, setText] = useState("why are you");
-
   const [vaasId, setVaasId] = useState(null);
-
   const textareaRef = useRef(null);
 
   const maxRows = 4; // Maximum number of rows allowed
@@ -44,100 +43,75 @@ const Conversation = () => {
     }
   };
 
-  const initialApi = () => {
-    fetch("https://testenv.innobyteslab.com/vaas/", {
+  const initialApi = (Base_api) => {
+    fetch(Base_api, {
       headers: {
         "VAAS-API-Key": "test-x0848bd789fjk13",
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setVaasId(data.vaas_sid);
+        console.log("Initial route: ", data.vaas_sid);
+        setVaasId("Vas_id", data.vaas_sid);
       });
   };
 
   const chatHandler = () => {
-    initialApi();
+    const url = "https://testenv.innobyteslab.com/vaas/";
+    initialApi(url);
+    handleUpdate();
+  };
+
+  const updateData = (apiUrl, successMessage, errorMessage) => {
+    fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "VAAS-API-Key": "test-x0848bd789fjk13",
+      },
+      body: JSON.stringify({ data: newVassHistory }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(successMessage, data);
+        setVaasHistory(data.history);
+        setNewVassHistory("");
+      })
+      .catch((error) => {
+        console.error(errorMessage, error);
+      });
   };
 
   const handleUpdate = () => {
     const apiKey = "test-x0848bd789fjk13";
-    // const vaasSid = "83b04e59fc7403b2848f279fa2722c73";
     const question = text;
+    const vaasSid = vaasId;
 
-    fetch("https://testenv.innobyteslab.com/vaas/history/", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "VAAS-API-Key": apiKey,
-        vaas_sid: vaasId,
-        question: question,
-      },
-      body: JSON.stringify({ data: newVassHistory }),
-    })
-      .then((response) => {
-        console.log("Data updated successfully", response);
-        setVaasHistory(response);
-        setNewVassHistory("");
-      })
-      .catch((error) => {
-        console.error("Error updating data:", error);
-      });
+    const apiUrl = `https://testenv.innobyteslab.com/vaas/history/`;
+    const successMessage = "Data updated successfully";
+    const errorMessage = "Error updating data:";
+
+    updateData(apiUrl, successMessage, errorMessage);
   };
-  const handleLike = () => {
+  console.log("history", vassHistory);
+  const handleLikeDislike = (feedback) => {
     const vaasSid = vaasId;
     const question = "who are you";
     const answer = "anything goes here";
-    const feedback = true;
 
-    fetch(
-      `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${feedback}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "VAAS-API-Key": "test-x0848bd789fjk13",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Like success:", data);
-      })
-      .catch((error) => {
-        console.error("Like error:", error);
-      });
-    // Update the UI state
-    setIsLiked(true);
-    setIsDisliked(false);
-  };
-  const handleDislike = () => {
-    const vaasSid = 89;
-    const question = "who are you";
-    const answer = "anything goes here";
-    const feedback = false;
+    const apiUrl = `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${feedback}`;
+    const successMessage = feedback ? "Like success:" : "Dislike success:";
+    const errorMessage = feedback ? "Like error:" : "Dislike error:";
 
-    fetch(
-      `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${feedback}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "VAAS-API-Key": "test-x0848bd789fjk13",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Dislike success:", data);
-      })
-      .catch((error) => {
-        console.error("Dislike error:", error);
-      });
+    updateData(
+      "https://testenv.innobyteslab.com/vaas/history/",
+      successMessage,
+      errorMessage
+    );
+
     // Update the UI state
-    setIsLiked(false);
-    setIsDisliked(true);
+    setIsLiked(feedback);
+    setIsDisliked(!feedback);
   };
 
   return (
@@ -146,30 +120,35 @@ const Conversation = () => {
         {display && (
           <>
             <div className="chatting">
-              {vassHistory.map((chat, index) => (
-                <div key={index}>
-                  <div className="answer">
-                    <img src={aiFace} alt="" />
-                    <p>{chat.answer}</p>
-                    <div className="reaction">
-                      <img
-                        onClick={handleLike}
-                        src={isLiked ? liked : like}
-                        alt=""
+              {vassHistory?.length > 0 &&
+                vassHistory?.map((chat, index) => (
+                  <div key={index}>
+                    <div className="answer">
+                      <img src={aiFace} alt="" />
+                      <p>{chat[0]}</p>
+                      <div className="reaction">
+                        <img
+                          onClick={() => handleLikeDislike(true)}
+                          src={isLiked ? liked : like}
+                          alt=""
+                        />
+                        <img
+                          onClick={() => handleLikeDislike(false)}
+                          src={isDisliked ? disliked : dislike}
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div className="question">
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: chat[1],
+                        }}
                       />
-                      <img
-                        onClick={handleDislike}
-                        src={isDisliked ? disliked : dislike}
-                        alt=""
-                      />
+                      <img src={user} alt="" />
                     </div>
                   </div>
-                  <div className="question">
-                    <p>{chat.question}</p>
-                    <img src={user} alt="" />
-                  </div>
-                </div>
-              ))}
+                ))}
             </div>
             <div className="input_field">
               <div className="user_input">
@@ -179,7 +158,6 @@ const Conversation = () => {
                   onChange={handleChange}
                   placeholder="Type your question here.... (Scribe tu pregunta aqui....)"
                 />
-
                 <button onClick={handleUpdate}>
                   <img src={send} alt="" />
                 </button>
@@ -187,7 +165,6 @@ const Conversation = () => {
             </div>
           </>
         )}
-
         <img
           onClick={() => {
             setDisplay(!display);
@@ -203,3 +180,21 @@ const Conversation = () => {
 };
 
 export default Conversation;
+
+// Looks good Mamtaz! Thank you.
+
+// A few comments:
+// 1. this appears to take the entire page -- but it's supposed to just be on overlay at
+// the bottom of an existing page.
+// 2. the user picture is supposed to be a simple icon
+// 3. the chat icon on the bototm right opens everything (not just the text input box)
+//  but the entire thing (see https://testenv.innobyteslab.com/static/converse.html)
+//
+
+// border: 1px solid whitesmoke;
+// background: white;
+// padding: 20px;
+// border-radius: 10px;
+// box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+// -webkit-box-shadow: 0px 0px 16px -4px rgb(243 243 243 / 28%);
+// -moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
