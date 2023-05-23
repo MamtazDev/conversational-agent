@@ -34,8 +34,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 70vh;
-  width: 50%;
+  height: 80vh;
+  width: 60%;
   border: 1px solid whitesmoke;
   background: white;
   border-radius: 10px;
