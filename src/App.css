@@ -136,6 +136,7 @@ body {
   right: 20px;
   animation: floating 2s ease-in-out infinite;
   z-index: 2;
+  cursor: pointer;
 }
 
 .conversation .chatting {
