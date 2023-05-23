@@ -8,9 +8,8 @@ import liked from "../assets/liked.png";
 import like from "../assets/like.png";
 import disliked from "../assets/disliked.png";
 import dislike from "../assets/dislike.png";
-import messenger from "../assets/ai-face.png";
 
-const Conversation = ({display,setDisplay}) => {
+const Conversation = ({ display, setDisplay }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const [vassHistory, setVaasHistory] = useState([]);
@@ -117,63 +116,50 @@ const Conversation = ({display,setDisplay}) => {
   return (
     <div className="conversation">
       <div className="container">
-        {display && (
-          <>
-            <div className="chatting">
-              {vassHistory?.length > 0 &&
-                vassHistory?.map((chat, index) => (
-                  <div key={index}>
-                    <div className="answer">
-                      <img src={aiFace} alt="" />
-                      <p>{chat[0]}</p>
-                      <div className="reaction">
-                        <img
-                          onClick={() => handleLikeDislike(true)}
-                          src={isLiked ? liked : like}
-                          alt=""
-                        />
-                        <img
-                          onClick={() => handleLikeDislike(false)}
-                          src={isDisliked ? disliked : dislike}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="question">
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: chat[1],
-                        }}
-                      />
-                      <img src={user} alt="" />
-                    </div>
+        <div className="chatting">
+          {vassHistory?.length > 0 &&
+            vassHistory?.map((chat, index) => (
+              <div key={index}>
+                <div className="answer">
+                  <img src={aiFace} alt="" />
+                  <p>{chat[0]}</p>
+                  <div className="reaction">
+                    <img
+                      onClick={() => handleLikeDislike(true)}
+                      src={isLiked ? liked : like}
+                      alt=""
+                    />
+                    <img
+                      onClick={() => handleLikeDislike(false)}
+                      src={isDisliked ? disliked : dislike}
+                      alt=""
+                    />
                   </div>
-                ))}
-            </div>
-            <div className="input_field">
-              <div className="user_input">
-                <textarea
-                  ref={textareaRef}
-                  value={newVassHistory}
-                  onChange={handleChange}
-                  placeholder="Type your question here.... (Scribe tu pregunta aqui....)"
-                />
-                <button onClick={handleUpdate}>
-                  <img src={send} alt="" />
-                </button>
+                </div>
+                <div className="question">
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: chat[1],
+                    }}
+                  />
+                  <img src={user} alt="" />
+                </div>
               </div>
-            </div>
-          </>
-        )}
-        <img
-          onClick={() => {
-            setDisplay(!display);
-            chatHandler();
-          }}
-          className="sms_icon img-fluid"
-          src={messenger}
-          alt=""
-        />
+            ))}
+        </div>
+        <div className="input_field">
+          <div className="user_input">
+            <textarea
+              ref={textareaRef}
+              value={newVassHistory}
+              onChange={handleChange}
+              placeholder="Type your question here.... (Scribe tu pregunta aqui....)"
+            />
+            <button onClick={handleUpdate}>
+              <img src={send} alt="" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

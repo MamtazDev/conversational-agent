@@ -23,16 +23,26 @@ body {
   padding: 0;
 }
 
-div#root {
+/* div#root {
   height: 100vh;
-}
+} */
 
 .virtual_agent {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
-
+  max-height: 70vh;
+  width: 50%;
+  border: 1px solid whitesmoke;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 16px -4px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 0px 16px -4px rgb(243 243 243 / 28%);
+  -moz-box-shadow: 0px 0px 16px -4px rgba(0, 0, 0, 0.75);
 }
 
 
@@ -115,7 +125,7 @@ div#root {
   }
 }
 
-.conversation .sms_icon {
+.sms_icon {
   position: fixed;
   bottom: 20px;
   right: 20px;
