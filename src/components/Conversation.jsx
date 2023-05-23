@@ -67,6 +67,7 @@ const Conversation = ({
       .then((data) => {
         console.log("data", data.history);
         setHistory(data.history);
+        setNewVassHistory("")
       });
   };
 
