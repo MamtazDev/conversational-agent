@@ -155,7 +155,8 @@ const Conversation = ({
     const errorMessage = feedback ? "Like error:" : "Dislike error:";
 
     updateData(
-      "https://testenv.innobyteslab.com/vaas/history/",
+      // "https://testenv.innobyteslab.com/vaas/history/",
+      apiUrl,
       successMessage,
       errorMessage
     );
@@ -170,12 +171,13 @@ const Conversation = ({
       <div className="container">
         <div className="answer">
           <img src={aiFace} alt="" />
-
-          <p
-            dangerouslySetInnerHTML={{
-              __html: initialAnswer,
-            }}
-          />
+          {initialAnswer && (
+            <p
+              dangerouslySetInnerHTML={{
+                __html: initialAnswer,
+              }}
+            />
+          )}
           <div className="reaction">
             <img
               onClick={() => handleLikeDislike(true)}

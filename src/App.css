@@ -29,8 +29,8 @@ body {
 
 .virtual_agent {
   position: absolute;
-  right: 30px;
-  bottom: 30px;
+  right: 40px;
+  bottom: 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -38,11 +38,16 @@ body {
   width: 50%;
   border: 1px solid whitesmoke;
   background: white;
-  padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 16px -4px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 0px 0px 16px -4px rgb(243 243 243 / 28%);
   -moz-box-shadow: 0px 0px 16px -4px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.virtual_agent::-webkit-scrollbar {
+  display: none;
 }
 
 
@@ -135,7 +140,8 @@ body {
 
 .conversation .chatting {
   flex-grow: 1;
-  overflow-y: auto;
+  overflow-y: scroll;
+  /* height: 70vh; */
 }
 
 .conversation .chatting::-webkit-scrollbar {
@@ -315,6 +321,10 @@ body {
 }
 
 @media screen and (max-width:991px) {
+  .virtual_agent {
+    width: 80%;
+  }
+
   .conversation .input_field {
     bottom: 265px;
   }
@@ -333,7 +343,11 @@ body {
   }
 }
 
-@media screen and (max-width:667px) {
+@media screen and (max-width:768px) {
+  .virtual_agent {
+    height: 90vh;
+    width: 90%;
+  }
 
   .header .header_buttons,
   .footer .footer_inner,
