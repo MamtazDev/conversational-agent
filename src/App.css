@@ -34,7 +34,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-height: 70vh;
+  height: 70vh;
   width: 50%;
   border: 1px solid whitesmoke;
   background: white;
@@ -243,9 +243,9 @@ body {
   display: none;
 }
 
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .conversation .user_input button {
   height: 56px;

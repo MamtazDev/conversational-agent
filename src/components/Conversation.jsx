@@ -9,13 +9,23 @@ import like from "../assets/like.png";
 import disliked from "../assets/disliked.png";
 import dislike from "../assets/dislike.png";
 
-const Conversation = ({ display, setDisplay }) => {
+const Conversation = ({
+  display,
+  setDisplay,
+  vaasId,
+  setVaasId,
+  initialAnswer,
+  setinitialAnswer,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const [vassHistory, setVaasHistory] = useState([]);
+  const [history, setHistory] = useState([]);
   const [newVassHistory, setNewVassHistory] = useState("");
+  const [apiKey, setApiKey] = useState("test-x0848bd789fjk13");
   const [text, setText] = useState("why are you");
-  const [vaasId, setVaasId] = useState(null);
+  // const [vaasId, setVaasId] = useState(null);
+  // const [initialAnswer, setinitialAnswer] = useState(null);
   const textareaRef = useRef(null);
 
   const maxRows = 4; // Maximum number of rows allowed
@@ -45,28 +55,47 @@ const Conversation = ({ display, setDisplay }) => {
   const initialApi = (Base_api) => {
     fetch(Base_api, {
       headers: {
-        "VAAS-API-Key": "test-x0848bd789fjk13",
+        "VAAS-API-Key": apiKey,
       },
     })
       .then((res) => res.json())
       .then((data) => {
         console.log("Initial route: ", data.vaas_sid);
         setVaasId("Vas_id", data.vaas_sid);
+        setinitialAnswer(data.answer);
       });
   };
-
-  const chatHandler = () => {
-    const url = "https://testenv.innobyteslab.com/vaas/";
-    initialApi(url);
-    handleUpdate();
+  const HistoryHandler = () => {
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "VAAS-API-Key": "test-x0848bd789fjk13",
+      },
+      body: JSON.stringify({
+        vaas_sid: vaasId,
+        question: text,
+      }),
+    };
+    fetch("https://testenv.innobyteslab.com/vaas/history/", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data.history);
+        setHistory(data.history);
+      });
   };
+  // const chatHandler = () => {
+  //   const url = "https://testenv.innobyteslab.com/vaas/";
+  //   initialApi(url);
+  //   handleUpdate();
+  // };
 
   const updateData = (apiUrl, successMessage, errorMessage) => {
     fetch(apiUrl, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "VAAS-API-Key": "test-x0848bd789fjk13",
+        "VAAS-API-Key": apiKey,
       },
       body: JSON.stringify({ data: newVassHistory }),
     })
@@ -90,8 +119,31 @@ const Conversation = ({ display, setDisplay }) => {
     const successMessage = "Data updated successfully";
     const errorMessage = "Error updating data:";
 
-    updateData(apiUrl, successMessage, errorMessage);
+    const makeHistory = {
+      "VAAS-API-Key": "test-x0848bd789fjk13",
+      vaas_sid: "83b04e59fc7403b2848f279fa2722c73",
+      question: "how?",
+    };
+
+    fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "VAAS-API-Key": "test-x0848bd789fjk13",
+      },
+      body: JSON.stringify({ makeHistory }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Response Data: ", successMessage, data);
+        // setVaasHistory(data.history);
+        // setNewVassHistory("");
+      })
+      .catch((error) => {
+        console.error(errorMessage, error);
+      });
   };
+
   console.log("history", vassHistory);
   const handleLikeDislike = (feedback) => {
     const vaasSid = vaasId;
@@ -116,13 +168,47 @@ const Conversation = ({ display, setDisplay }) => {
   return (
     <div className="conversation">
       <div className="container">
+        <div className="answer">
+          <img src={aiFace} alt="" />
+
+          <p
+            dangerouslySetInnerHTML={{
+              __html: initialAnswer,
+            }}
+          />
+          <div className="reaction">
+            <img
+              onClick={() => handleLikeDislike(true)}
+              src={isLiked ? liked : like}
+              alt=""
+            />
+            <img
+              onClick={() => handleLikeDislike(false)}
+              src={isDisliked ? disliked : dislike}
+              alt=""
+            />
+          </div>
+        </div>
         <div className="chatting">
-          {vassHistory?.length > 0 &&
-            vassHistory?.map((chat, index) => (
+          {history?.length > 0 &&
+            history?.map((chat, index) => (
               <div key={index}>
+                <div className="question">
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: chat[0],
+                    }}
+                  />
+                  <img src={user} alt="" />
+                </div>
                 <div className="answer">
                   <img src={aiFace} alt="" />
-                  <p>{chat[0]}</p>
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: chat[1],
+                    }}
+                  />
+
                   <div className="reaction">
                     <img
                       onClick={() => handleLikeDislike(true)}
@@ -136,14 +222,6 @@ const Conversation = ({ display, setDisplay }) => {
                     />
                   </div>
                 </div>
-                <div className="question">
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: chat[1],
-                    }}
-                  />
-                  <img src={user} alt="" />
-                </div>
               </div>
             ))}
         </div>
@@ -155,7 +233,7 @@ const Conversation = ({ display, setDisplay }) => {
               onChange={handleChange}
               placeholder="Type your question here.... (Scribe tu pregunta aqui....)"
             />
-            <button onClick={handleUpdate}>
+            <button onClick={HistoryHandler}>
               <img src={send} alt="" />
             </button>
           </div>
