@@ -24,8 +24,6 @@ const Conversation = ({
   const [newVassHistory, setNewVassHistory] = useState("");
   const [apiKey, setApiKey] = useState("test-x0848bd789fjk13");
   const [text, setText] = useState("why are you");
-  // const [vaasId, setVaasId] = useState(null);
-  // const [initialAnswer, setinitialAnswer] = useState(null);
   const textareaRef = useRef(null);
 
   const maxRows = 4; // Maximum number of rows allowed
@@ -52,19 +50,6 @@ const Conversation = ({
     }
   };
 
-  const initialApi = (Base_api) => {
-    fetch(Base_api, {
-      headers: {
-        "VAAS-API-Key": apiKey,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Initial route: ", data.vaas_sid);
-        setVaasId("Vas_id", data.vaas_sid);
-        setinitialAnswer(data.answer);
-      });
-  };
   const HistoryHandler = () => {
     const requestOptions = {
       method: "PUT",
@@ -84,11 +69,6 @@ const Conversation = ({
         setHistory(data.history);
       });
   };
-  // const chatHandler = () => {
-  //   const url = "https://testenv.innobyteslab.com/vaas/";
-  //   initialApi(url);
-  //   handleUpdate();
-  // };
 
   const updateData = (apiUrl, successMessage, errorMessage) => {
     fetch(apiUrl, {
@@ -110,41 +90,6 @@ const Conversation = ({
       });
   };
 
-  const handleUpdate = () => {
-    const apiKey = "test-x0848bd789fjk13";
-    const question = text;
-    const vaasSid = vaasId;
-
-    const apiUrl = `https://testenv.innobyteslab.com/vaas/history/`;
-    const successMessage = "Data updated successfully";
-    const errorMessage = "Error updating data:";
-
-    const makeHistory = {
-      "VAAS-API-Key": "test-x0848bd789fjk13",
-      vaas_sid: "83b04e59fc7403b2848f279fa2722c73",
-      question: "how?",
-    };
-
-    fetch(apiUrl, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "VAAS-API-Key": "test-x0848bd789fjk13",
-      },
-      body: JSON.stringify({ makeHistory }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Response Data: ", successMessage, data);
-        // setVaasHistory(data.history);
-        // setNewVassHistory("");
-      })
-      .catch((error) => {
-        console.error(errorMessage, error);
-      });
-  };
-
-  console.log("history", vassHistory);
   const handleLikeDislike = (feedback) => {
     const vaasSid = vaasId;
     const question = "who are you";

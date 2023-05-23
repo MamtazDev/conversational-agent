@@ -4,11 +4,9 @@ import Conversation from "./components/Conversation";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import messenger from "./assets/ai-face.png";
-import Demo from "./components/Demo";
 
 function App() {
   const [display, setDisplay] = useState(false);
-
   const [vaasId, setVaasId] = useState(null);
   const [initialAnswer, setinitialAnswer] = useState(null);
 
