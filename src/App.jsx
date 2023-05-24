@@ -38,8 +38,8 @@ function App() {
           <Header display={display} setDisplay={setDisplay} />
           <div>
             <Conversation
-            loading={loading}
-            setLoading={setLoading}
+              loading={loading}
+              setLoading={setLoading}
               display={display}
               setDisplay={setDisplay}
               vaasId={vaasId}

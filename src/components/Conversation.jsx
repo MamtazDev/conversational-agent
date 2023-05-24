@@ -160,6 +160,16 @@ const Conversation = ({
     scrollToBottom();
   }, [history]);
 
+  const sanitizeData = (data) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(data, "text/html");
+    const aTags = doc.getElementsByTagName("a");
+    for (let i = 0; i < aTags.length; i++) {
+      aTags[i].setAttribute("target", "_blank");
+    }
+    return doc.body.innerHTML;
+  };
+
   return (
     <div className="conversation">
       <div className="container">
@@ -174,7 +184,7 @@ const Conversation = ({
             initialAnswer && (
               <p
                 dangerouslySetInnerHTML={{
-                  __html: initialAnswer,
+                  __html: sanitizeData(initialAnswer),
                 }}
               />
             )
@@ -214,7 +224,7 @@ const Conversation = ({
                   ) : (
                     <p
                       dangerouslySetInnerHTML={{
-                        __html: chat[1],
+                        __html: sanitizeData(chat[1]),
                       }}
                     />
                   )}
