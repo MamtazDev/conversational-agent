@@ -189,7 +189,7 @@ const Conversation = ({
                 <div className="answer">
                   <img src={aiFace} alt="" />
 
-                  {loading ? (
+                  {loading && lastElement === chat ? (
                     <p>
                       <img width={30} height={30} src={load} alt="" />
                     </p>
