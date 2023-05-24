@@ -9,8 +9,10 @@ function App() {
   const [display, setDisplay] = useState(false);
   const [vaasId, setVaasId] = useState(null);
   const [initialAnswer, setinitialAnswer] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const initialApi = (Base_api) => {
+    setLoading(true);
     fetch(Base_api, {
       headers: {
         "VAAS-API-Key": "test-x0848bd789fjk13",
@@ -21,6 +23,7 @@ function App() {
         console.log("Initial route: ", data.vaas_sid);
         setVaasId("Vas_id", data.vaas_sid);
         setinitialAnswer(data.answer);
+        setLoading(false);
       });
   };
 
@@ -35,6 +38,7 @@ function App() {
           <Header display={display} setDisplay={setDisplay} />
           <div>
             <Conversation
+            loading={loading}
               display={display}
               setDisplay={setDisplay}
               vaasId={vaasId}

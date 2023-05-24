@@ -8,6 +8,7 @@ import liked from "../assets/liked.png";
 import like from "../assets/like.png";
 import disliked from "../assets/disliked.png";
 import dislike from "../assets/dislike.png";
+import load from "../assets/loading.png";
 
 const Conversation = ({
   display,
@@ -16,6 +17,7 @@ const Conversation = ({
   setVaasId,
   initialAnswer,
   setinitialAnswer,
+  loading,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
@@ -36,19 +38,37 @@ const Conversation = ({
   };
 
   const adjustTextareaHeight = () => {
+    const calculatedHeight = 1 * lineHeight;
+    textareaRef.current.style.overflowY = "hidden";
+    textareaRef.current.style.height = `${calculatedHeight}px`;
+
     if (textareaRef.current) {
       const rowCount = textareaRef.current.value.split("\n").length;
-      const calculatedHeight = rowCount * lineHeight;
 
-      if (rowCount > maxRows) {
-        textareaRef.current.style.overflowY = "auto";
-        textareaRef.current.style.height = `${maxRows * lineHeight}px`;
-      } else {
-        textareaRef.current.style.overflowY = "hidden";
-        textareaRef.current.style.height = `${calculatedHeight}px`;
-      }
+    if (rowCount > maxRows) {
+      textareaRef.current.style.overflowY = "auto";
+      textareaRef.current.style.height = `${maxRows * lineHeight}px`;
+    } else {
+      textareaRef.current.style.overflowY = "hidden";
+      textareaRef.current.style.height = `${calculatedHeight}px`;
+    }
     }
   };
+
+  // const resizeTextHandler = () => {
+  //   if (textareaRef.current) {
+  //     const rowCount = textareaRef.current.value.split("\n").length;
+  //     const calculatedHeight = rowCount * lineHeight;
+
+  //     if (rowCount > maxRows) {
+  //       textareaRef.current.style.overflowY = "auto";
+  //       textareaRef.current.style.height = `${maxRows * lineHeight}px`;
+  //     } else {
+  //       textareaRef.current.style.overflowY = "hidden";
+  //       textareaRef.current.style.height = `${calculatedHeight}px`;
+  //     }
+  //   }
+  // };
 
   const HistoryHandler = () => {
     const requestOptions = {
@@ -67,8 +87,10 @@ const Conversation = ({
       .then((data) => {
         console.log("data", data.history);
         setHistory(data.history);
-        setNewVassHistory("")
+        setNewVassHistory("");
       });
+
+    resizeTextHandler();
   };
 
   const updateData = (apiUrl, successMessage, errorMessage) => {
@@ -117,12 +139,19 @@ const Conversation = ({
       <div className="container">
         <div className="answer">
           <img src={aiFace} alt="" />
-          {initialAnswer && (
-            <p
-              dangerouslySetInnerHTML={{
-                __html: initialAnswer,
-              }}
-            />
+
+          {loading ? (
+            <p>
+              <img width={30} height={30} src={load} alt="" />
+            </p>
+          ) : (
+            initialAnswer && (
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: initialAnswer,
+                }}
+              />
+            )
           )}
           <div className="reaction">
             <img
@@ -195,18 +224,20 @@ export default Conversation;
 
 // Looks good Mamtaz! Thank you.
 
-// A few comments:
-// 1. this appears to take the entire page -- but it's supposed to just be on overlay at
-// the bottom of an existing page.
-// 2. the user picture is supposed to be a simple icon
-// 3. the chat icon on the bototm right opens everything (not just the text input box)
-//  but the entire thing (see https://testenv.innobyteslab.com/static/converse.html)
-//
+//  -bad 1. the font sizes and the dimensions are dispropotionate with the "standard practice" in the business. Please take a look at https://www.hubspot.com and their chatbot. Let's make the all text sizes the same. They have a text area that is higher than the width, we'll keep ours wider than higher but otherwise the sizes should of similar proportions. That includes the floating icon on the bottom right which appears to be too small -- but I really like the jumping part of it! Well done.
 
-// border: 1px solid whitesmoke;
-// background: white;
-// padding: 20px;
-// border-radius: 10px;
-// box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-// -webkit-box-shadow: 0px 0px 16px -4px rgb(243 243 243 / 28%);
-// -moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+// -pera 2. the text area does not scroll when a new question/asnwer appears -- the last question and answer should always be visible without scrolling
+
+// -wip 3. the user input area should resize to one line after the send button (when multiline question is asked). Currently it resizes only on the next question.
+
+// -D 4. Short / detailed drop down does not appear to be working
+
+// -D 5. there floating icon at the bottom right does not have cursor indication it is clickable
+
+// -D 6. the links at the bottom have a cursor indication they are clickable but do nothing (I'll send you the links
+
+// 7. the links in the text should open in a new tab (so that the conversaiton context is not lost)
+
+// -wip 8. I could not see the spinner -- I'll make one of the euestions take more time so we test the spinner for waiting
+
+// -D 9. the links in the asnwer are not really visible with the color of the background. Let's make them more visible

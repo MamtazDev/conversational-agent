@@ -29,8 +29,8 @@ body {
 
 .virtual_agent {
   position: absolute;
-  right: 40px;
-  bottom: 40px;
+  right: 50px;
+  bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -137,6 +137,15 @@ body {
   animation: floating 2s ease-in-out infinite;
   z-index: 2;
   cursor: pointer;
+  height: 80px;
+  width: 80px;
+}
+
+.answer a {
+  color: whitesmoke;
+}
+.answer a:hover{
+  color: white;
 }
 
 .conversation .chatting {
@@ -282,6 +291,9 @@ body {
   font-size: 18px;
   line-height: 22px;
   color: #171717;
+}
+.footer a{
+  color: black;
 }
 
 .footer .footer_inner {

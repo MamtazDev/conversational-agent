@@ -20,7 +20,12 @@ const Footer = () => {
               <span>Quick Call</span>
             </button>
           </div>
-          <p>Powered by Veryverse</p>
+          <p>
+            Powered by{" "}
+            <a target="_blank" href="!#">
+              Veryverse
+            </a>{" "}
+          </p>
         </div>
       </div>
     </div>
