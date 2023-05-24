@@ -22,7 +22,7 @@ const Footer = () => {
           </div>
           <p>
             Powered by{" "}
-            <a target="_blank" href="!#">
+            <a target="_blank" href="https://www.veryverse.ai" rel="noreferrer">
               Veryverse
             </a>{" "}
           </p>
