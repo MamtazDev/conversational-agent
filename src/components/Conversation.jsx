@@ -18,6 +18,7 @@ const Conversation = ({
   initialAnswer,
   setinitialAnswer,
   loading,
+  setLoading,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
@@ -38,39 +39,44 @@ const Conversation = ({
   };
 
   const adjustTextareaHeight = () => {
-    const calculatedHeight = 1 * lineHeight;
-    textareaRef.current.style.overflowY = "hidden";
-    textareaRef.current.style.height = `${calculatedHeight}px`;
-
     if (textareaRef.current) {
       const rowCount = textareaRef.current.value.split("\n").length;
+      const calculatedHeight = rowCount * lineHeight;
 
-    if (rowCount > maxRows) {
-      textareaRef.current.style.overflowY = "auto";
-      textareaRef.current.style.height = `${maxRows * lineHeight}px`;
-    } else {
-      textareaRef.current.style.overflowY = "hidden";
-      textareaRef.current.style.height = `${calculatedHeight}px`;
-    }
+      if (rowCount > maxRows) {
+        textareaRef.current.style.overflowY = "auto";
+        textareaRef.current.style.height = `${maxRows * lineHeight}px`;
+      } else {
+        textareaRef.current.style.overflowY = "hidden";
+        textareaRef.current.style.height = `${calculatedHeight}px`;
+      }
     }
   };
 
-  // const resizeTextHandler = () => {
-  //   if (textareaRef.current) {
-  //     const rowCount = textareaRef.current.value.split("\n").length;
-  //     const calculatedHeight = rowCount * lineHeight;
+  const resizeTextHandler = () => {
+    setNewVassHistory("");
+    // textareaRef.current.onChange()
+    const calculatedHeight = 1 * lineHeight;
 
-  //     if (rowCount > maxRows) {
-  //       textareaRef.current.style.overflowY = "auto";
-  //       textareaRef.current.style.height = `${maxRows * lineHeight}px`;
-  //     } else {
-  //       textareaRef.current.style.overflowY = "hidden";
-  //       textareaRef.current.style.height = `${calculatedHeight}px`;
-  //     }
-  //   }
-  // };
+    textareaRef.current.style.overflowY = "auto";
+    textareaRef.current.style.height = `${1 * lineHeight}px`;
+
+    // if (textareaRef.current) {
+    //   const rowCount = textareaRef.current.value.split("\n").length;
+    //   const calculatedHeight = rowCount * lineHeight;
+
+    //   if (rowCount > maxRows) {
+    //     textareaRef.current.style.overflowY = "auto";
+    //     textareaRef.current.style.height = `${maxRows * lineHeight}px`;
+    //   } else {
+    //     textareaRef.current.style.overflowY = "hidden";
+    //     textareaRef.current.style.height = `${calculatedHeight}px`;
+    //   }
+    // }
+  };
 
   const HistoryHandler = () => {
+    setLoading(true);
     const requestOptions = {
       method: "PUT",
       headers: {
@@ -88,10 +94,12 @@ const Conversation = ({
         console.log("data", data.history);
         setHistory(data.history);
         setNewVassHistory("");
+        setLoading(false);
       });
 
     resizeTextHandler();
   };
+  const lastElement = history[history.length - 1];
 
   const updateData = (apiUrl, successMessage, errorMessage) => {
     fetch(apiUrl, {
@@ -180,11 +188,24 @@ const Conversation = ({
                 </div>
                 <div className="answer">
                   <img src={aiFace} alt="" />
-                  <p
+
+                  {loading ? (
+                    <p>
+                      <img width={30} height={30} src={load} alt="" />
+                    </p>
+                  ) : (
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: chat[1],
+                      }}
+                    />
+                  )}
+
+                  {/* <p
                     dangerouslySetInnerHTML={{
                       __html: chat[1],
                     }}
-                  />
+                  /> */}
 
                   <div className="reaction">
                     <img
@@ -222,13 +243,9 @@ const Conversation = ({
 
 export default Conversation;
 
-// Looks good Mamtaz! Thank you.
-
-//  -bad 1. the font sizes and the dimensions are dispropotionate with the "standard practice" in the business. Please take a look at https://www.hubspot.com and their chatbot. Let's make the all text sizes the same. They have a text area that is higher than the width, we'll keep ours wider than higher but otherwise the sizes should of similar proportions. That includes the floating icon on the bottom right which appears to be too small -- but I really like the jumping part of it! Well done.
-
 // -pera 2. the text area does not scroll when a new question/asnwer appears -- the last question and answer should always be visible without scrolling
 
-// -wip 3. the user input area should resize to one line after the send button (when multiline question is asked). Currently it resizes only on the next question.
+// -D 3. the user input area should resize to one line after the send button (when multiline question is asked). Currently it resizes only on the next question.
 
 // -D 4. Short / detailed drop down does not appear to be working
 

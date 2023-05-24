@@ -39,6 +39,7 @@ function App() {
           <div>
             <Conversation
             loading={loading}
+            setLoading={setLoading}
               display={display}
               setDisplay={setDisplay}
               vaasId={vaasId}
