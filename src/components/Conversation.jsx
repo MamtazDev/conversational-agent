@@ -178,7 +178,7 @@ const Conversation = ({
 
           {loading ? (
             <p>
-              <img width={30} height={30} src={load} alt="" />
+              <img className="loading"  width={30} height={30} src={load} alt="" />
             </p>
           ) : (
             initialAnswer && (
@@ -219,7 +219,7 @@ const Conversation = ({
 
                   {loading && lastElement === chat ? (
                     <p>
-                      <img width={30} height={30} src={load} alt="" />
+                      <img className="loading" width={30} height={30} src={load} alt="" />
                     </p>
                   ) : (
                     <p
