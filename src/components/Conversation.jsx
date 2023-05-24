@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import aiFace from "../assets/ai-face.png";
 import user from "../assets/user.png";
@@ -29,6 +29,8 @@ const Conversation = ({
   const [text, setText] = useState("why are you");
   const textareaRef = useRef(null);
 
+  const chatContainerRef = useRef(null);
+
   const maxRows = 4; // Maximum number of rows allowed
   const lineHeight = 20; // Line height of the textarea
 
@@ -36,6 +38,16 @@ const Conversation = ({
     setText(event.target.value);
     setNewVassHistory(event.target.value);
     adjustTextareaHeight();
+  };
+
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      const chatContainer = chatContainerRef.current;
+      const lastChatMessage = chatContainer.lastElementChild;
+      if (lastChatMessage) {
+        lastChatMessage.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   };
 
   const adjustTextareaHeight = () => {
@@ -55,7 +67,6 @@ const Conversation = ({
 
   const resizeTextHandler = () => {
     setNewVassHistory("");
-    // textareaRef.current.onChange()
     const calculatedHeight = 1 * lineHeight;
 
     textareaRef.current.style.overflowY = "auto";
@@ -95,6 +106,9 @@ const Conversation = ({
         setHistory(data.history);
         setNewVassHistory("");
         setLoading(false);
+
+        const habijabi = document.getElementById("nipa");
+        habijabi.scrollTo({ bottom: 0, right: 0, behavior: "smooth" });
       });
 
     resizeTextHandler();
@@ -142,6 +156,10 @@ const Conversation = ({
     setIsDisliked(!feedback);
   };
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [history]);
+
   return (
     <div className="conversation">
       <div className="container">
@@ -174,7 +192,7 @@ const Conversation = ({
             />
           </div>
         </div>
-        <div className="chatting">
+        <div ref={chatContainerRef} className="chatting">
           {history?.length > 0 &&
             history?.map((chat, index) => (
               <div key={index}>
@@ -242,19 +260,3 @@ const Conversation = ({
 };
 
 export default Conversation;
-
-// -pera 2. the text area does not scroll when a new question/asnwer appears -- the last question and answer should always be visible without scrolling
-
-// -D 3. the user input area should resize to one line after the send button (when multiline question is asked). Currently it resizes only on the next question.
-
-// -D 4. Short / detailed drop down does not appear to be working
-
-// -D 5. there floating icon at the bottom right does not have cursor indication it is clickable
-
-// -D 6. the links at the bottom have a cursor indication they are clickable but do nothing (I'll send you the links
-
-// 7. the links in the text should open in a new tab (so that the conversaiton context is not lost)
-
-// -wip 8. I could not see the spinner -- I'll make one of the euestions take more time so we test the spinner for waiting
-
-// -D 9. the links in the asnwer are not really visible with the color of the background. Let's make them more visible
