@@ -11,11 +11,11 @@ const Header = ({ display, setDisplay,setText,responseHandeler,
     setDropdown(content)
 
     if(content==="Detailed Response"){
-      setText("provide me detail answer")
+      setText("Please provide me detail answer")
       setResponseHandeler("dt")
     }
     if(content==="Short Response"){
-      setText("provide me short answer")
+      setText("Please provide me short answer")
       setResponseHandeler("sh")
     }
   }

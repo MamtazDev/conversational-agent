@@ -22,8 +22,7 @@ const Conversation = ({
   setText,
   text,
   responseHandeler,
-  setResponseHandeler
- 
+  setResponseHandeler,
 }) => {
   const [isLiked, setIsLiked] = useState([]);
   const [isDisliked, setIsDisliked] = useState([]);
@@ -91,8 +90,6 @@ const Conversation = ({
     // }
   };
 
-  console.log(isLiked,"jkk")
-
   const HistoryHandler = () => {
     setLoading(true);
     const requestOptions = {
@@ -109,14 +106,11 @@ const Conversation = ({
     fetch("https://testenv.innobyteslab.com/vaas/history/", requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data,"history data")
+        console.log(data, "history data");
         console.log("data", data.history);
         setHistory(data.history);
         setNewVassHistory("");
         setLoading(false);
-
-        const habijabi = document.getElementById("nipa");
-        habijabi.scrollTo({ bottom: 0, right: 0, behavior: "smooth" });
       });
 
     resizeTextHandler();
@@ -134,7 +128,7 @@ const Conversation = ({
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(successMessage,"mohi");
+        console.log(successMessage, "mohi");
         setVaasHistory(data.history);
         setNewVassHistory("");
       })
@@ -143,15 +137,15 @@ const Conversation = ({
       });
   };
 
-  const handleLikeDislike = (feedback,status, index) => {
+  const handleLikeDislike = (feedback, status, index) => {
     const vaasSid = vaasId;
 
     // console.log(feedback[0], feedback[1])
-    
+
     const question = feedback[0];
     const answer = feedback[1];
 
-    console.log(feedback,"feedback")
+    console.log(feedback, "feedback");
 
     const apiUrl = `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${status}`;
     const successMessage = status ? "Like success:" : "Dislike success:";
@@ -165,28 +159,27 @@ const Conversation = ({
     );
 
     // Update the UI state
-    if(status){
-      const liked = isDisliked.filter(i=>i!==index)
-      setIsDisliked(liked)
-      setIsLiked(current=>[...current,index]);
+    if (status) {
+      const liked = isDisliked.filter((i) => i !== index);
+      setIsDisliked(liked);
+      setIsLiked((current) => [...current, index]);
     }
-    if(!status){
-      const notliked = isLiked.filter(i=>i!==index) 
-      setIsLiked(notliked)
-      setIsDisliked(current=>[...current,index]);
+    if (!status) {
+      const notliked = isLiked.filter((i) => i !== index);
+      setIsLiked(notliked);
+      setIsDisliked((current) => [...current, index]);
     }
-    
   };
 
   useEffect(() => {
     scrollToBottom();
   }, [history]);
 
-  useEffect(()=>{
-   if(responseHandeler==="sh"||responseHandeler==="dt"){
-    HistoryHandler()
-   }
-  },[responseHandeler])
+  useEffect(() => {
+    if (responseHandeler === "sh" || responseHandeler === "dt") {
+      HistoryHandler();
+    }
+  }, [responseHandeler]);
 
   const sanitizeData = (data) => {
     const parser = new DOMParser();
@@ -206,7 +199,13 @@ const Conversation = ({
 
           {loading ? (
             <p>
-              <img className="loading"  width={30} height={30} src={load} alt="" />
+              <img
+                className="loading"
+                width={30}
+                height={30}
+                src={load}
+                alt=""
+              />
             </p>
           ) : (
             initialAnswer && (
@@ -247,7 +246,13 @@ const Conversation = ({
 
                   {loading && lastElement === chat ? (
                     <p>
-                      <img className="loading" width={30} height={30} src={load} alt="" />
+                      <img
+                        className="loading"
+                        width={30}
+                        height={30}
+                        src={load}
+                        alt=""
+                      />
                     </p>
                   ) : (
                     <p
@@ -265,13 +270,13 @@ const Conversation = ({
 
                   <div className="reaction">
                     <img
-                      onClick={() => handleLikeDislike(chat,true,index)}
-                      src={isLiked.includes(index)  ? liked : like}
+                      onClick={() => handleLikeDislike(chat, true, index)}
+                      src={isLiked.includes(index) ? liked : like}
                       alt=""
                     />
                     <img
-                      onClick={() => handleLikeDislike(chat,false,index)}
-                      src={isDisliked.includes(index)  ? disliked : dislike}
+                      onClick={() => handleLikeDislike(chat, false, index)}
+                      src={isDisliked.includes(index) ? disliked : dislike}
                       alt=""
                     />
                   </div>
