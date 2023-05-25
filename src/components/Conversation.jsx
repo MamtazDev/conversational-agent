@@ -19,14 +19,19 @@ const Conversation = ({
   setinitialAnswer,
   loading,
   setLoading,
+  setText,
+  text,
+  responseHandeler,
+  setResponseHandeler
+ 
 }) => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [isDisliked, setIsDisliked] = useState(false);
+  const [isLiked, setIsLiked] = useState([]);
+  const [isDisliked, setIsDisliked] = useState([]);
   const [vassHistory, setVaasHistory] = useState([]);
   const [history, setHistory] = useState([]);
   const [newVassHistory, setNewVassHistory] = useState("");
   const [apiKey, setApiKey] = useState("test-x0848bd789fjk13");
-  const [text, setText] = useState("why are you");
+  // const [text, setText] = useState("why are you");
   const textareaRef = useRef(null);
 
   const chatContainerRef = useRef(null);
@@ -86,6 +91,8 @@ const Conversation = ({
     // }
   };
 
+  console.log(isLiked,"jkk")
+
   const HistoryHandler = () => {
     setLoading(true);
     const requestOptions = {
@@ -102,6 +109,7 @@ const Conversation = ({
     fetch("https://testenv.innobyteslab.com/vaas/history/", requestOptions)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data,"history data")
         console.log("data", data.history);
         setHistory(data.history);
         setNewVassHistory("");
@@ -126,7 +134,7 @@ const Conversation = ({
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(successMessage, data);
+        console.log(successMessage,"mohi");
         setVaasHistory(data.history);
         setNewVassHistory("");
       })
@@ -135,14 +143,19 @@ const Conversation = ({
       });
   };
 
-  const handleLikeDislike = (feedback) => {
+  const handleLikeDislike = (feedback,status, index) => {
     const vaasSid = vaasId;
-    const question = "who are you";
-    const answer = "anything goes here";
 
-    const apiUrl = `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${feedback}`;
-    const successMessage = feedback ? "Like success:" : "Dislike success:";
-    const errorMessage = feedback ? "Like error:" : "Dislike error:";
+    // console.log(feedback[0], feedback[1])
+    
+    const question = feedback[0];
+    const answer = feedback[1];
+
+    console.log(feedback,"feedback")
+
+    const apiUrl = `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${status}`;
+    const successMessage = status ? "Like success:" : "Dislike success:";
+    const errorMessage = status ? "Like error:" : "Dislike error:";
 
     updateData(
       // "https://testenv.innobyteslab.com/vaas/history/",
@@ -152,13 +165,28 @@ const Conversation = ({
     );
 
     // Update the UI state
-    setIsLiked(feedback);
-    setIsDisliked(!feedback);
+    if(status){
+      const liked = isDisliked.filter(i=>i!==index)
+      setIsDisliked(liked)
+      setIsLiked(current=>[...current,index]);
+    }
+    if(!status){
+      const notliked = isLiked.filter(i=>i!==index) 
+      setIsLiked(notliked)
+      setIsDisliked(current=>[...current,index]);
+    }
+    
   };
 
   useEffect(() => {
     scrollToBottom();
   }, [history]);
+
+  useEffect(()=>{
+   if(responseHandeler==="sh"||responseHandeler==="dt"){
+    HistoryHandler()
+   }
+  },[responseHandeler])
 
   const sanitizeData = (data) => {
     const parser = new DOMParser();
@@ -192,12 +220,12 @@ const Conversation = ({
           <div className="reaction">
             <img
               onClick={() => handleLikeDislike(true)}
-              src={isLiked ? liked : like}
+              src={like }
               alt=""
             />
             <img
               onClick={() => handleLikeDislike(false)}
-              src={isDisliked ? disliked : dislike}
+              src={dislike}
               alt=""
             />
           </div>
@@ -237,13 +265,13 @@ const Conversation = ({
 
                   <div className="reaction">
                     <img
-                      onClick={() => handleLikeDislike(true)}
-                      src={isLiked ? liked : like}
+                      onClick={() => handleLikeDislike(chat,true,index)}
+                      src={isLiked.includes(index)  ? liked : like}
                       alt=""
                     />
                     <img
-                      onClick={() => handleLikeDislike(false)}
-                      src={isDisliked ? disliked : dislike}
+                      onClick={() => handleLikeDislike(chat,false,index)}
+                      src={isDisliked.includes(index)  ? disliked : dislike}
                       alt=""
                     />
                   </div>

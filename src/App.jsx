@@ -10,6 +10,8 @@ function App() {
   const [vaasId, setVaasId] = useState(null);
   const [initialAnswer, setinitialAnswer] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [text, setText] = useState("why are you");
+  const [responseHandeler, setResponseHandeler] = useState();
 
   const initialApi = (Base_api) => {
     setLoading(true);
@@ -20,6 +22,7 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
+        // console.log(data,"inidata")
         console.log("Initial route: ", data.vaas_sid);
         setVaasId("Vas_id", data.vaas_sid);
         setinitialAnswer(data.answer);
@@ -35,7 +38,13 @@ function App() {
     <div>
       {display && (
         <div className="virtual_agent">
-          <Header display={display} setDisplay={setDisplay} />
+          <Header
+            display={display}
+            setDisplay={setDisplay}
+            setText={setText}
+            responseHandeler={responseHandeler}
+            setResponseHandeler={setResponseHandeler}
+          />
           <div>
             <Conversation
               loading={loading}
@@ -46,6 +55,10 @@ function App() {
               setVaasId={setVaasId}
               initialAnswer={initialAnswer}
               setinitialAnswer={setinitialAnswer}
+              text={text}
+              setText={setText}
+              responseHandeler={responseHandeler}
+              setResponseHandeler={setResponseHandeler}
             />
 
             <Footer />
@@ -55,7 +68,7 @@ function App() {
 
       <img
         onClick={() => {
-          setDisplay(!display);
+          setDisplay(true);
           chatHandler();
         }}
         className="sms_icon img-fluid"

@@ -1,8 +1,24 @@
 import logo from "../assets/logo.png";
 import close from "../assets/close.png";
 import arrow from "../assets/down-arrow.png";
+import { useState } from "react";
 
-const Header = ({ display, setDisplay }) => {
+const Header = ({ display, setDisplay,setText,responseHandeler,
+  setResponseHandeler }) => {
+  const [dropdown,setDropdown]=useState("Short Response")
+
+  const handleDropDown=(content)=>{
+    setDropdown(content)
+
+    if(content==="Detailed Response"){
+      setText("provide me detail answer")
+      setResponseHandeler("dt")
+    }
+    if(content==="Short Response"){
+      setText("provide me short answer")
+      setResponseHandeler("sh")
+    }
+  }
   return (
     <div className="header">
       <div className="container">
@@ -31,14 +47,19 @@ const Header = ({ display, setDisplay }) => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    Short Response{" "}
-                    <img style={{ marginLeft: "46px" }} src={arrow} alt="" />
+                   {dropdown}{" "}
+                    <img style={{ marginLeft: "10px" }} src={arrow} alt="" />
                   </button>
                   <ul className="dropdown-menu">
                     <li>
-                      <a className="dropdown-item" href="#">
-                        Detailed Response
+                      {dropdown ==="Short Response"?<a className="dropdown-item" href="#" onClick={()=>handleDropDown("Detailed Response")}>
+                      Detailed Response
                       </a>
+                      :
+                      <a className="dropdown-item" href="#" onClick={()=>handleDropDown("Short Response")}>
+                      Short Response
+                      </a>}
+                      
                     </li>
                   </ul>
                 </div>
