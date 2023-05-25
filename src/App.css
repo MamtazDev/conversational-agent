@@ -129,13 +129,22 @@ body {
     transform: translateY(0);
   }
 }
-.loading{
+
+.loading {
   animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); } /* Starting rotation angle */
-  100% { transform: rotate(360deg); } /* Ending rotation angle */
+  0% {
+    transform: rotate(0deg);
+  }
+
+  /* Starting rotation angle */
+  100% {
+    transform: rotate(360deg);
+  }
+
+  /* Ending rotation angle */
 }
 
 
@@ -157,7 +166,8 @@ body {
 .answer a {
   color: whitesmoke;
 }
-.answer a:hover{
+
+.answer a:hover {
   color: white;
 }
 
@@ -305,7 +315,8 @@ body {
   line-height: 22px;
   color: #171717;
 }
-.footer a{
+
+.footer a {
   color: black;
 }
 
@@ -319,6 +330,10 @@ body {
   display: flex;
   align-items: center;
   gap: 64px;
+}
+
+.footer .btn_group a {
+  text-decoration: none;
 }
 
 .footer button {

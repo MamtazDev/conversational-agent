@@ -7,10 +7,16 @@ const Footer = () => {
       <div className="container">
         <div className="footer_inner">
           <div className="btn_group">
-            <button className="violet_btn">
-              <img src={calender} alt="" />
-              <span>Book an Appointment</span>
-            </button>
+            <a
+              target="_blank"
+              href="https://squareup.com/appointments/book/fzx6h5zvy9re4e/LYG594QJD0CHT/services"
+              rel="noreferrer"
+            >
+              <button className="violet_btn">
+                <img src={calender} alt="" />
+                <span>Book an Appointment</span>
+              </button>
+            </a>
             <button className="violet_btn">
               <img src={text} alt="" />
               <span>Text Us</span>
