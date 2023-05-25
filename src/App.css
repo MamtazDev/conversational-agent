@@ -30,7 +30,7 @@ body {
 .virtual_agent {
   position: absolute;
   right: 50px;
-  bottom: 50px;
+  bottom: 60px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -148,11 +148,6 @@ body {
   /* Ending rotation angle */
 }
 
-
-
-
-
-
 .sms_icon {
   position: fixed;
   bottom: 20px;
@@ -160,8 +155,8 @@ body {
   animation: floating 2s ease-in-out infinite;
   z-index: 2;
   cursor: pointer;
-  height: 80px;
-  width: 80px;
+  height: 65px;
+  width: 65px;
 }
 
 .answer a {

@@ -217,7 +217,7 @@ const Conversation = ({
               />
             )
           )}
-          <div className="reaction">
+          {/* <div className="reaction">
             <img
               onClick={() => handleLikeDislike(true)}
               src={like }
@@ -228,7 +228,7 @@ const Conversation = ({
               src={dislike}
               alt=""
             />
-          </div>
+          </div> */}
         </div>
         <div ref={chatContainerRef} className="chatting">
           {history?.length > 0 &&

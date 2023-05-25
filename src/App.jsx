@@ -22,7 +22,6 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data,"inidata")
         console.log("Initial route: ", data.vaas_sid);
         setVaasId("Vas_id", data.vaas_sid);
         setinitialAnswer(data.answer);
