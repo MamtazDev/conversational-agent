@@ -34,11 +34,13 @@ function App() {
     const url = "https://testenv.innobyteslab.com/vaas/";
     initialApi(url);
   };
-  useEffect(()=>{
-    fetch('https://testenv.innobyteslab.com/vaas/config')
-    .then(res=>res.json())
-    .then(data=>console.log("config",data));
-  },[])
+  useEffect(() => {
+    fetch("https://testenv.innobyteslab.com/vaas/config")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("config", data), setConfig(data);
+      });
+  }, []);
   return (
     <div>
       {display && (
