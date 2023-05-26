@@ -266,14 +266,14 @@ const Conversation = ({
                     </p>
                   ) : (
                     <p
-                      style={{
-                        // backgroundColor: config.vaas_response_bg_color
-                        //   ? config.vaas_response_bg_color
-                        //   : "#6240B1",
-                        // color: config.vaas_response_text_color
-                        //   ? config.vaas_response_text_color
-                        //   : "",
-                      }}
+                      // style={{
+                      //   backgroundColor: config.vaas_response_bg_color
+                      //     ? config.vaas_response_bg_color
+                      //     : "#6240B1",
+                      //   color: config.vaas_response_text_color
+                      //     ? config.vaas_response_text_color
+                      //     : "",
+                      // }}
                       dangerouslySetInnerHTML={{
                         __html: sanitizeData(chat[1]),
                       }}
