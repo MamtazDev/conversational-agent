@@ -45,7 +45,11 @@ const Header = ({
               className="navbar-brand"
               href="#"
             >
-              <img style={{ marginRight: "16px" }} src={logo} alt="" />
+              <img
+                style={{ marginRight: "16px" }}
+                src={config.logo ? config.logo : logo}
+                alt=""
+              />
               {config.title ? config.title : "Virtual Assistant"}
             </a>
             <button
