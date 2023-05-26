@@ -89,6 +89,7 @@ const Conversation = ({
       body: JSON.stringify({
         vaas_sid: vaasId,
         question: text,
+      
       }),
     };
     fetch("https://testenv.innobyteslab.com/vaas/history/", requestOptions)
@@ -148,14 +149,18 @@ const Conversation = ({
 
     // Update the UI state
     if (status) {
-      const liked = isDisliked.filter((i) => i !== index);
+      const liked = isDisliked.filter((i) => i !== question);
       setIsDisliked(liked);
-      setIsLiked((current) => [...current, index]);
+      setIsLiked((current) => [...current, question]);
+      localStorage.setItem('VADisLiked', JSON.stringify(liked))
+      localStorage.setItem('VALiked', JSON.stringify([...isLiked,question]))
     }
     if (!status) {
-      const notliked = isLiked.filter((i) => i !== index);
+      const notliked = isLiked.filter((i) => i !== question);
       setIsLiked(notliked);
-      setIsDisliked((current) => [...current, index]);
+      setIsDisliked((current) => [...current, question]);
+      localStorage.setItem('VALiked', JSON.stringify(notliked))
+      localStorage.setItem('VADisLiked', JSON.stringify([...isDisliked,question]))
     }
   };
 
@@ -168,6 +173,22 @@ const Conversation = ({
       HistoryHandler();
     }
   }, [responseHandeler]);
+
+  useEffect(()=>{
+    const liked = JSON.parse(localStorage.getItem("VALiked"))
+    const notLiked = JSON.parse(localStorage.getItem("VADisLiked"))
+    if(liked){
+      setIsLiked(liked)
+    }
+
+    if(notLiked){
+      setIsDisliked(notLiked)
+    }
+
+    console.log(liked,"likeddd")
+    console.log(notLiked,"notLiked")
+
+  },[isLiked.length, isDisliked.length])
 
   const sanitizeData = (data) => {
     const parser = new DOMParser();
@@ -267,12 +288,12 @@ const Conversation = ({
                   <div className="reaction">
                     <img
                       onClick={() => handleLikeDislike(chat, true, index)}
-                      src={isLiked.includes(index) ? liked : like}
+                      src={isLiked.includes(chat[0]) ? liked : like}
                       alt=""
                     />
                     <img
                       onClick={() => handleLikeDislike(chat, false, index)}
-                      src={isDisliked.includes(index) ? disliked : dislike}
+                      src={isDisliked.includes(chat[0]) ? disliked : dislike}
                       alt=""
                     />
                   </div>
@@ -311,3 +332,16 @@ const Conversation = ({
 };
 
 export default Conversation;
+
+
+// Hi roboticlab,
+
+// Thanks again for your order! Your delivery is enclosed. 
+
+// resize relates issue resolved, 
+
+// spinner issue, active link, short details response now working, detailed response working,  thumbs up (almost done, i will update code today)
+
+
+// Thanks again and have a great day! :)
+// mamtaz01
