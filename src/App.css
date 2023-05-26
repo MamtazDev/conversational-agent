@@ -23,14 +23,11 @@ body {
   padding: 0;
 }
 
-/* div#root {
-  height: 100vh;
-} */
 
 .virtual_agent {
   position: absolute;
   right: 50px;
-  bottom: 60px;
+  bottom: 70px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

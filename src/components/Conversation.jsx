@@ -89,7 +89,6 @@ const Conversation = ({
       body: JSON.stringify({
         vaas_sid: vaasId,
         question: text,
-      
       }),
     };
     fetch("https://testenv.innobyteslab.com/vaas/history/", requestOptions)
@@ -152,15 +151,18 @@ const Conversation = ({
       const liked = isDisliked.filter((i) => i !== question);
       setIsDisliked(liked);
       setIsLiked((current) => [...current, question]);
-      localStorage.setItem('VADisLiked', JSON.stringify(liked))
-      localStorage.setItem('VALiked', JSON.stringify([...isLiked,question]))
+      localStorage.setItem("VADisLiked", JSON.stringify(liked));
+      localStorage.setItem("VALiked", JSON.stringify([...isLiked, question]));
     }
     if (!status) {
       const notliked = isLiked.filter((i) => i !== question);
       setIsLiked(notliked);
       setIsDisliked((current) => [...current, question]);
-      localStorage.setItem('VALiked', JSON.stringify(notliked))
-      localStorage.setItem('VADisLiked', JSON.stringify([...isDisliked,question]))
+      localStorage.setItem("VALiked", JSON.stringify(notliked));
+      localStorage.setItem(
+        "VADisLiked",
+        JSON.stringify([...isDisliked, question])
+      );
     }
   };
 
@@ -174,21 +176,20 @@ const Conversation = ({
     }
   }, [responseHandeler]);
 
-  useEffect(()=>{
-    const liked = JSON.parse(localStorage.getItem("VALiked"))
-    const notLiked = JSON.parse(localStorage.getItem("VADisLiked"))
-    if(liked){
-      setIsLiked(liked)
+  useEffect(() => {
+    const liked = JSON.parse(localStorage.getItem("VALiked"));
+    const notLiked = JSON.parse(localStorage.getItem("VADisLiked"));
+    if (liked) {
+      setIsLiked(liked);
     }
 
-    if(notLiked){
-      setIsDisliked(notLiked)
+    if (notLiked) {
+      setIsDisliked(notLiked);
     }
 
-    console.log(liked,"likeddd")
-    console.log(notLiked,"notLiked")
-
-  },[isLiked.length, isDisliked.length])
+    console.log(liked, "likeddd");
+    console.log(notLiked, "notLiked");
+  }, [isLiked.length, isDisliked.length]);
 
   const sanitizeData = (data) => {
     const parser = new DOMParser();
@@ -269,9 +270,9 @@ const Conversation = ({
                         backgroundColor: config.vaas_response_bg_color
                           ? config.vaas_response_bg_color
                           : "#6240B1",
-                        color: config.vaas_response_text_color
-                          ? config.vaas_response_text_color
-                          : "",
+                        // color: config.vaas_response_text_color
+                        //   ? config.vaas_response_text_color
+                        //   : "",
                       }}
                       dangerouslySetInnerHTML={{
                         __html: sanitizeData(chat[1]),
@@ -333,15 +334,13 @@ const Conversation = ({
 
 export default Conversation;
 
-
 // Hi roboticlab,
 
-// Thanks again for your order! Your delivery is enclosed. 
+// Thanks again for your order! Your delivery is enclosed.
 
-// resize relates issue resolved, 
+// resize relates issue resolved,
 
 // spinner issue, active link, short details response now working, detailed response working,  thumbs up (almost done, i will update code today)
-
 
 // Thanks again and have a great day! :)
 // mamtaz01
