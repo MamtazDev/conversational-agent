@@ -244,6 +244,14 @@ const Conversation = ({
                     </p>
                   ) : (
                     <p
+                      style={{
+                        backgroundColor: config.vaas_response_bg_color
+                          ? config.vaas_response_bg_color
+                          : "#6240B1",
+                        color: config.vaas_response_text_color
+                          ? config.vaas_response_text_color
+                          : "",
+                      }}
                       dangerouslySetInnerHTML={{
                         __html: sanitizeData(chat[1]),
                       }}
@@ -275,6 +283,14 @@ const Conversation = ({
         <div className="input_field">
           <div className="user_input">
             <textarea
+              style={{
+                backgroundColor: config.user_input_bg_color
+                  ? config.user_input_bg_color
+                  : "#EFEFEF ",
+                color: config.user_input_text_color
+                  ? config.user_input_text_color
+                  : "black",
+              }}
               ref={textareaRef}
               value={newVassHistory}
               onChange={handleChange}

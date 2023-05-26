@@ -36,7 +36,7 @@ const Footer = ({ config }) => {
               href={
                 config.quick_call_url
                   ? config.quick_call_url
-                  : "https://squareup.com/appointments/book/fzx6h5zvy9re4e/LYG594QJD0CHT/services"
+                  : "tel: +1-804-222-1111"
               }
               rel="noreferrer"
             >
@@ -47,12 +47,16 @@ const Footer = ({ config }) => {
             </a>
           </div>
           <p>
-           
-            <a  target="_blank"
-              href={config.powered_by_url ? config.powered_by_url : "https://squareup.com/appointments/book/fzx6h5zvy9re4e/LYG594QJD0CHT/services"}
+            <a
+              target="_blank"
+              href={
+                config.powered_by_url
+                  ? config.powered_by_url
+                  : "https://squareup.com/appointments/book/fzx6h5zvy9re4e/LYG594QJD0CHT/services"
+              }
               rel="noreferrer"
             >
-             {config.powered_by? config.powered_by : ""}
+              {config.powered_by ? config.powered_by : ""}
             </a>{" "}
           </p>
         </div>

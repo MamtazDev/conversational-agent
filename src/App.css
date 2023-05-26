@@ -172,13 +172,13 @@ body {
   width: 65px;
 }
 
-.answer a {
+/* .answer a {
   color: whitesmoke;
-}
+} */
 
-.answer a:hover {
+/* .answer a:hover {
   color: white;
-}
+} */
 
 .conversation .chatting {
   flex-grow: 1;
@@ -212,13 +212,13 @@ body {
 }
 
 .conversation .answer p {
-  background: linear-gradient(180deg, #5B5BE5 0%, #6240B1 100%);
+  /* background: linear-gradient(180deg, #5B5BE5 0%, #6240B1 100%); */
   border-radius: 8px 16px 16px 8px;
   padding: 18px 140px 18px 40px;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  color: #FFFFFF;
+  /* color: #FFFFFF; */
   width: 100%;
 }
 
