@@ -37,7 +37,7 @@ const Header = ({
                   : "white",
                 fontSize: config.title_text_size
                   ? config.title_text_size
-                  : "24px",
+                  : "16px",
                 color: config.title_text_color
                   ? config.title_text_color
                   : "#6242B5",

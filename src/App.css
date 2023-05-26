@@ -98,7 +98,7 @@ body {
   border-radius: 8px;
   padding: 8px 16px;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 19px;
   color: #35255C !important;
   width: 230px;
@@ -119,8 +119,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  width: 40px;
+  height: 34px;
+  width: 34px;
 }
 
 .conversation {
@@ -211,7 +211,7 @@ body {
 .conversation .answer p {
   background: linear-gradient(180deg, #5B5BE5 0%, #6240B1 100%);
   border-radius: 8px 16px 16px 8px;
-  padding: 18px 140px 18px 40px;
+  padding: 18px 140px 18px 20px;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
@@ -325,10 +325,12 @@ body {
 .footer a {
   color: black;
   text-decoration: none;
+  font-size: 12px;
 }
 
 .footer .footer_inner {
   display: flex;
+  gap: 20px;
   align-items: center;
   justify-content: space-between;
 }
@@ -336,7 +338,7 @@ body {
 .footer .btn_group {
   display: flex;
   align-items: center;
-  gap: 64px;
+  gap: 24px;
 }
 
 .footer .btn_group a {
@@ -345,7 +347,7 @@ body {
 
 .footer button {
   font-weight: 500;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 22px;
   display: flex;
   gap: 8px;
@@ -356,7 +358,7 @@ body {
   background: #5E51DE;
   border: 1px solid #35255C;
   border-radius: 8px;
-  padding: 15px 36px;
+  padding: 12px 16px;
   color: #FFFFFF;
 }
 
@@ -364,7 +366,7 @@ body {
   background: #E7B43E;
   border: 1px solid #E7B43E;
   border-radius: 8px;
-  padding: 15px 36px;
+  padding: 12px 16px;
   color: #35255C;
 }
 
