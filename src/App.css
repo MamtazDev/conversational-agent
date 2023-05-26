@@ -107,6 +107,8 @@ body {
 
 .dropdown-menu.show {
   width: 100%;
+  font-size: 12px;
+  text-align: center;
 }
 
 .dropdown-toggle::after {
@@ -406,6 +408,6 @@ body {
     flex-direction: column;
   }
 
-  
+
 
 }
