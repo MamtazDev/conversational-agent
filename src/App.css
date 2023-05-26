@@ -373,10 +373,11 @@ body {
 @media screen and (max-width:991px) {
   .virtual_agent {
     width: 80%;
+    right: 20px;
   }
 
   .conversation .input_field {
-    bottom: 220px;
+    bottom: 187px;
   }
 
   .footer .footer_inner,
@@ -385,11 +386,11 @@ body {
   }
 
   .footer .btn_group {
-    gap: 20px;
+    gap: 10px;
   }
 
   .footer .footer_inner {
-    gap: 20px;
+    gap: 10px;
   }
 }
 
@@ -405,12 +406,6 @@ body {
     flex-direction: column;
   }
 
-  .footer .btn_group {
-    gap: 20px;
-  }
-
-  .footer .footer_inner {
-    gap: 20px;
-  }
+  
 
 }
