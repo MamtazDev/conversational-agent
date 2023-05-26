@@ -34,18 +34,21 @@ function App() {
     const url = "https://testenv.innobyteslab.com/vaas/";
     initialApi(url);
   };
+
   useEffect(() => {
-    fetch("https://testenv.innobyteslab.com/vaas/config")
+    fetch("https://testenv.innobyteslab.com/vaas/config/")
       .then((res) => res.json())
       .then((data) => {
         console.log("config", data), setConfig(data);
       });
   }, []);
+
   return (
     <div>
       {display && (
         <div className="virtual_agent">
           <Header
+            config={config}
             display={display}
             setDisplay={setDisplay}
             setText={setText}
@@ -54,6 +57,7 @@ function App() {
           />
           <div>
             <Conversation
+            config={config}
               loading={loading}
               setLoading={setLoading}
               display={display}
@@ -68,7 +72,7 @@ function App() {
               setResponseHandeler={setResponseHandeler}
             />
 
-            <Footer />
+            <Footer config={config} />
           </div>
         </div>
       )}

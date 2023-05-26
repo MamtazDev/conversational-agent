@@ -70,6 +70,19 @@ body {
   align-items: center;
 }
 
+.navbar-brand {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #6242B5;
+}
+
+.navbar-brand:hover {
+  color: #6242B5;
+}
+
 .header {
   background: #FFFFFF;
   box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.07);
@@ -314,6 +327,7 @@ body {
 
 .footer a {
   color: black;
+  text-decoration: none;
 }
 
 .footer .footer_inner {

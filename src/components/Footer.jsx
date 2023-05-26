@@ -1,7 +1,7 @@
 import calender from "../assets/calender.png";
 import text from "../assets/text.png";
 import call from "../assets/call.png";
-const Footer = () => {
+const Footer = ({ config }) => {
   return (
     <div className="footer">
       <div className="container">
@@ -9,7 +9,11 @@ const Footer = () => {
           <div className="btn_group">
             <a
               target="_blank"
-              href="https://squareup.com/appointments/book/fzx6h5zvy9re4e/LYG594QJD0CHT/services"
+              href={
+                config.appointment_url
+                  ? config.appointment_url
+                  : "https://squareup.com/appointments/book/fzx6h5zvy9re4e/LYG594QJD0CHT/services"
+              }
               rel="noreferrer"
             >
               <button className="violet_btn">
@@ -17,19 +21,38 @@ const Footer = () => {
                 <span>Book an Appointment</span>
               </button>
             </a>
-            <button className="violet_btn">
-              <img src={text} alt="" />
-              <span>Text Us</span>
-            </button>
-            <button className="warning_btn">
-              <img src={call} alt="" />
-              <span>Quick Call</span>
-            </button>
+            <a
+              target="_blank"
+              href={config.text_us_url ? config.text_us_url : ""}
+              rel="noreferrer"
+            >
+              <button className="violet_btn">
+                <img src={text} alt="" />
+                <span>Text Us</span>
+              </button>
+            </a>
+            <a
+              target="_blank"
+              href={
+                config.quick_call_url
+                  ? config.quick_call_url
+                  : "https://squareup.com/appointments/book/fzx6h5zvy9re4e/LYG594QJD0CHT/services"
+              }
+              rel="noreferrer"
+            >
+              <button className="warning_btn">
+                <img src={call} alt="" />
+                <span>Quick Call</span>
+              </button>
+            </a>
           </div>
           <p>
-            Powered by{" "}
-            <a target="_blank" href="https://www.veryverse.ai" rel="noreferrer">
-              Veryverse
+           
+            <a  target="_blank"
+              href={config.powered_by_url ? config.powered_by_url : "https://squareup.com/appointments/book/fzx6h5zvy9re4e/LYG594QJD0CHT/services"}
+              rel="noreferrer"
+            >
+             {config.powered_by? config.powered_by : ""}
             </a>{" "}
           </p>
         </div>

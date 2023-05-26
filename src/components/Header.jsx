@@ -3,29 +3,50 @@ import close from "../assets/close.png";
 import arrow from "../assets/down-arrow.png";
 import { useState } from "react";
 
-const Header = ({ display, setDisplay,setText,responseHandeler,
-  setResponseHandeler }) => {
-  const [dropdown,setDropdown]=useState("Short Response")
+const Header = ({
+  config,
+  display,
+  setDisplay,
+  setText,
+  responseHandeler,
+  setResponseHandeler,
+}) => {
+  const [dropdown, setDropdown] = useState("Short Response");
 
-  const handleDropDown=(content)=>{
-    setDropdown(content)
+  const handleDropDown = (content) => {
+    setDropdown(content);
 
-    if(content==="Detailed Response"){
-      setText("Please provide me detail answer")
-      setResponseHandeler("dt")
+    if (content === "Detailed Response") {
+      setText("Please provide me detail answer");
+      setResponseHandeler("dt");
     }
-    if(content==="Short Response"){
-      setText("Please provide me short answer")
-      setResponseHandeler("sh")
+    if (content === "Short Response") {
+      setText("Please provide me short answer");
+      setResponseHandeler("sh");
     }
-  }
+  };
   return (
     <div className="header">
       <div className="container">
         <nav className="navbar navbar-expand-lg ">
           <div className="container-fluid">
-            <a className="navbar-brand" href="#">
-              <img src={logo} alt="" />
+            <a
+              style={{
+                backgroundColor: config.title_bg_color
+                  ? config.title_bg_color
+                  : "white",
+                fontSize: config.title_text_size
+                  ? config.title_text_size
+                  : "24px",
+                color: config.title_text_color
+                  ? config.title_text_color
+                  : "#6242B5",
+              }}
+              className="navbar-brand"
+              href="#"
+            >
+              <img style={{ marginRight: "16px" }} src={logo} alt="" />
+              {config.title ? config.title : "Virtual Assistant"}
             </a>
             <button
               className="navbar-toggler"
@@ -47,19 +68,28 @@ const Header = ({ display, setDisplay,setText,responseHandeler,
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                   {dropdown}{" "}
+                    {dropdown}{" "}
                     <img style={{ marginLeft: "10px" }} src={arrow} alt="" />
                   </button>
                   <ul className="dropdown-menu">
                     <li>
-                      {dropdown ==="Short Response"?<a className="dropdown-item" href="#" onClick={()=>handleDropDown("Detailed Response")}>
-                      Detailed Response
-                      </a>
-                      :
-                      <a className="dropdown-item" href="#" onClick={()=>handleDropDown("Short Response")}>
-                      Short Response
-                      </a>}
-                      
+                      {dropdown === "Short Response" ? (
+                        <a
+                          className="dropdown-item"
+                          href="#"
+                          onClick={() => handleDropDown("Detailed Response")}
+                        >
+                          Detailed Response
+                        </a>
+                      ) : (
+                        <a
+                          className="dropdown-item"
+                          href="#"
+                          onClick={() => handleDropDown("Short Response")}
+                        >
+                          Short Response
+                        </a>
+                      )}
                     </li>
                   </ul>
                 </div>

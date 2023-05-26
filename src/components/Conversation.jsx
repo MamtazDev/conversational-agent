@@ -11,6 +11,7 @@ import dislike from "../assets/dislike.png";
 import load from "../assets/loading.png";
 
 const Conversation = ({
+  config,
   display,
   setDisplay,
   vaasId,
@@ -75,19 +76,6 @@ const Conversation = ({
 
     textareaRef.current.style.overflowY = "auto";
     textareaRef.current.style.height = `${1 * lineHeight}px`;
-
-    // if (textareaRef.current) {
-    //   const rowCount = textareaRef.current.value.split("\n").length;
-    //   const calculatedHeight = rowCount * lineHeight;
-
-    //   if (rowCount > maxRows) {
-    //     textareaRef.current.style.overflowY = "auto";
-    //     textareaRef.current.style.height = `${maxRows * lineHeight}px`;
-    //   } else {
-    //     textareaRef.current.style.overflowY = "hidden";
-    //     textareaRef.current.style.height = `${calculatedHeight}px`;
-    //   }
-    // }
   };
 
   const HistoryHandler = () => {
@@ -290,7 +278,11 @@ const Conversation = ({
               ref={textareaRef}
               value={newVassHistory}
               onChange={handleChange}
-              placeholder="Type your question here.... (Scribe tu pregunta aqui....)"
+              placeholder={
+                config.user_input_placeholder
+                  ? config.user_input_placeholder
+                  : "Type your question here.... (Scribe tu pregunta aqui....)"
+              }
             />
             <button onClick={HistoryHandler}>
               <img src={send} alt="" />
