@@ -170,13 +170,13 @@ body {
 
 }
 
-.answer a {
+/* .answer a {
   color: whitesmoke;
 }
 
 .answer a:hover {
   color: white;
-}
+} */
 
 .conversation .chatting {
   flex-grow: 1;
