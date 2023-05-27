@@ -25,8 +25,8 @@ const Conversation = ({
   responseHandeler,
   setResponseHandeler,
 }) => {
-  const [isLiked, setIsLiked] = useState();
-  const [isDisliked, setIsDisliked] = useState();
+  const [isLiked, setIsLiked] = useState([]);
+  const [isDisliked, setIsDisliked] = useState([]);
   const [vassHistory, setVaasHistory] = useState([]);
   const [history, setHistory] = useState([]);
   const [newVassHistory, setNewVassHistory] = useState("");
