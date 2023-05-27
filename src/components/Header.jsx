@@ -17,11 +17,11 @@ const Header = ({
     setDropdown(content);
 
     if (content === "Detailed Response") {
-      setText("Please provide me detail answer");
+      setText("Please provide  detail answer");
       setResponseHandeler("dt");
     }
     if (content === "Short Response") {
-      setText("Please provide me short answer");
+      setText("Please provide  short answer");
       setResponseHandeler("sh");
     }
   };
@@ -30,7 +30,7 @@ const Header = ({
       <div className="container">
         <nav className="navbar navbar-expand-lg ">
           <div className="container-fluid">
-            <a
+            <p
               style={{
                 backgroundColor: config.title_bg_color
                   ? config.title_bg_color
@@ -51,7 +51,7 @@ const Header = ({
                 alt=""
               />
               {config.title ? config.title : "Virtual Assistant"}
-            </a>
+            </p>
             <button
               className="navbar-toggler"
               type="button"

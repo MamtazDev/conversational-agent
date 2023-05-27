@@ -79,7 +79,7 @@ function App() {
 
       <img
         onClick={() => {
-          setDisplay(true);
+          setDisplay(!display);
           chatHandler();
         }}
         className="sms_icon img-fluid"
