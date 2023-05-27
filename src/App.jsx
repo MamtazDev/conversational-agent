@@ -23,7 +23,6 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Initial route: ", data.vaas_sid);
         setVaasId("Vas_id", data.vaas_sid);
         setinitialAnswer(data.answer);
         setLoading(false);
@@ -36,10 +35,14 @@ function App() {
   };
 
   useEffect(() => {
-    fetch("https://testenv.innobyteslab.com/vaas/config/")
+    fetch("https://testenv.innobyteslab.com/vaas/config/", {
+      headers: {
+        "VAAS-API-Key": "test-x0848bd789fjk13",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        console.log("config", data), setConfig(data);
+        setConfig(data);
       });
   }, []);
 
@@ -57,7 +60,7 @@ function App() {
           />
           <div>
             <Conversation
-            config={config}
+              config={config}
               loading={loading}
               setLoading={setLoading}
               display={display}
@@ -78,6 +81,7 @@ function App() {
       )}
 
       <img
+        width={60}
         onClick={() => {
           setDisplay(!display);
           chatHandler();

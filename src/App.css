@@ -167,8 +167,7 @@ body {
   animation: floating 2s ease-in-out infinite;
   z-index: 2;
   cursor: pointer;
-  height: 65px;
-  width: 65px;
+ 
 }
 
 .answer a {
@@ -224,6 +223,7 @@ body {
 .conversation .answer>img {
   box-shadow: 0px 4px 24px -8px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
+  width: 45px;
 }
 
 .conversation .question p {
@@ -249,7 +249,7 @@ body {
   position: sticky;
   bottom: 100px;
   background-color: white;
-  bottom: 60px;
+  bottom: 55px;
   padding: 30px 0;
 }
 
@@ -382,10 +382,11 @@ body {
     bottom: 187px;
   }
 
+  /* 
   .footer .footer_inner,
   .footer .btn_group {
     flex-direction: column;
-  }
+  } */
 
   .footer .btn_group {
     gap: 10px;
@@ -402,11 +403,11 @@ body {
     width: 90%;
   }
 
-  .header .header_buttons,
+  /* .header .header_buttons,
   .footer .footer_inner,
   .footer .btn_group {
     flex-direction: column;
-  }
+  } */
 
 
 

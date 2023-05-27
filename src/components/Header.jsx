@@ -1,4 +1,4 @@
-import logo from "../assets/logo.png";
+import logo from "../assets/ai-face.png";
 import close from "../assets/close.png";
 import arrow from "../assets/down-arrow.png";
 import { useState } from "react";
@@ -46,6 +46,7 @@ const Header = ({
               href="#"
             >
               <img
+                width={50}
                 style={{ marginRight: "16px" }}
                 src={config.logo ? config.logo : logo}
                 alt=""

@@ -94,8 +94,7 @@ const Conversation = ({
     fetch("https://testenv.innobyteslab.com/vaas/history/", requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data, "history data");
-        console.log("data", data.history);
+     
         setHistory(data.history);
         setNewVassHistory("");
         setLoading(false);
@@ -116,7 +115,7 @@ const Conversation = ({
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(successMessage, "mohi");
+       
         setVaasHistory(data.history);
         setNewVassHistory("");
       })
@@ -128,12 +127,12 @@ const Conversation = ({
   const handleLikeDislike = (feedback, status, index) => {
     const vaasSid = vaasId;
 
-    // console.log(feedback[0], feedback[1])
+   
 
     const question = feedback[0];
     const answer = feedback[1];
 
-    console.log(feedback, "feedback");
+    
 
     const apiUrl = `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${status}`;
     const successMessage = status ? "Like success:" : "Dislike success:";
@@ -187,8 +186,7 @@ const Conversation = ({
       setIsDisliked(notLiked);
     }
 
-    console.log(liked, "likeddd");
-    console.log(notLiked, "notLiked");
+  
   }, [isLiked.length, isDisliked.length]);
 
   const sanitizeData = (data) => {
@@ -266,14 +264,14 @@ const Conversation = ({
                     </p>
                   ) : (
                     <p
-                      // style={{
-                      //   backgroundColor: config.vaas_response_bg_color
-                      //     ? config.vaas_response_bg_color
-                      //     : "#6240B1",
-                      //   color: config.vaas_response_text_color
-                      //     ? config.vaas_response_text_color
-                      //     : "",
-                      // }}
+                      style={{
+                        backgroundColor: config.vaas_response_bg_color
+                          ? config.vaas_response_bg_color
+                          : "#6240B1",
+                        color: config.vaas_response_text_color
+                          ? config.vaas_response_text_color
+                          : "",
+                      }}
                       dangerouslySetInnerHTML={{
                         __html: sanitizeData(chat[1]),
                       }}
@@ -333,14 +331,3 @@ const Conversation = ({
 };
 
 export default Conversation;
-
-// Hi roboticlab,
-
-// Thanks again for your order! Your delivery is enclosed.
-
-// resize relates issue resolved,
-
-// spinner issue, active link, short details response now working, detailed response working,  thumbs up (almost done, i will update code today)
-
-// Thanks again and have a great day! :)
-// mamtaz01
