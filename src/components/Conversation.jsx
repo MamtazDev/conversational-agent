@@ -97,6 +97,7 @@ const Conversation = ({
         setHistory(data.history);
         setNewVassHistory("");
         setLoading(false);
+        setText("");
       });
 
     resizeTextHandler();
@@ -322,7 +323,7 @@ const Conversation = ({
                   : "Type your question here.... (Scribe tu pregunta aqui....)"
               }
             />
-            <button onClick={HistoryHandler}>
+            <button onClick={HistoryHandler} disabled={text === ""}>
               <img src={send} alt="" />
             </button>
           </div>

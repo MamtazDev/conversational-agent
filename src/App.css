@@ -167,7 +167,7 @@ body {
   animation: floating 2s ease-in-out infinite;
   z-index: 2;
   cursor: pointer;
- 
+
 }
 
 .answer a {
@@ -181,6 +181,7 @@ body {
 .conversation .chatting {
   flex-grow: 1;
   overflow-y: scroll;
+  overflow: hidden;
   /* height: 70vh; */
 }
 
@@ -379,7 +380,7 @@ body {
   }
 
   .conversation .input_field {
-    bottom: 187px;
+    bottom: 70px;
   }
 
   /* 
@@ -403,12 +404,15 @@ body {
     width: 90%;
   }
 
-  /* .header .header_buttons,
+  .header .header_buttons,
   .footer .footer_inner,
   .footer .btn_group {
     flex-direction: column;
-  } */
+  }
 
+  .conversation .input_field {
+    bottom: 136px;
+  }
 
 
 }

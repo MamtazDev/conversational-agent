@@ -11,7 +11,7 @@ function App() {
   const [vaasId, setVaasId] = useState(null);
   const [initialAnswer, setinitialAnswer] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [text, setText] = useState("why are you");
+  const [text, setText] = useState("");
   const [responseHandeler, setResponseHandeler] = useState();
 
   const initialApi = (Base_api) => {
