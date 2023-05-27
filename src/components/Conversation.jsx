@@ -94,7 +94,6 @@ const Conversation = ({
     fetch("https://testenv.innobyteslab.com/vaas/history/", requestOptions)
       .then((response) => response.json())
       .then((data) => {
-     
         setHistory(data.history);
         setNewVassHistory("");
         setLoading(false);
@@ -115,7 +114,6 @@ const Conversation = ({
     })
       .then((response) => response.json())
       .then((data) => {
-       
         setVaasHistory(data.history);
         setNewVassHistory("");
       })
@@ -127,12 +125,8 @@ const Conversation = ({
   const handleLikeDislike = (feedback, status, index) => {
     const vaasSid = vaasId;
 
-   
-
     const question = feedback[0];
     const answer = feedback[1];
-
-    
 
     const apiUrl = `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${status}`;
     const successMessage = status ? "Like success:" : "Dislike success:";
@@ -185,8 +179,6 @@ const Conversation = ({
     if (notLiked) {
       setIsDisliked(notLiked);
     }
-
-  
   }, [isLiked.length, isDisliked.length]);
 
   const sanitizeData = (data) => {
@@ -242,12 +234,22 @@ const Conversation = ({
             history?.map((chat, index) => (
               <div key={index}>
                 <div className="question">
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: chat[0],
-                    }}
-                  />
-                  <img src={user} alt="" />
+                  {chat[0] === "Please provide  detail answers" ||
+                  chat[0] === "Please provide  short answers" ? (
+                    ""
+                  ) : (
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: chat[0],
+                      }}
+                    />
+                  )}
+                  {chat[0] === "Please provide  detail answers" ||
+                  chat[0] === "Please provide  short answers" ? (
+                    ""
+                  ) : (
+                    <img src={user} alt="" />
+                  )}
                 </div>
                 <div className="answer">
                   <img src={aiFace} alt="" />
