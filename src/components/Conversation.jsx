@@ -31,7 +31,7 @@ const Conversation = ({
   const [history, setHistory] = useState([]);
   const [newVassHistory, setNewVassHistory] = useState("");
   const [apiKey, setApiKey] = useState("test-x0848bd789fjk13");
-  // const [text, setText] = useState("why are you");
+  const [feedback, setFeedback] = useState("");
   const textareaRef = useRef(null);
 
   const chatContainerRef = useRef(null);
@@ -142,20 +142,30 @@ const Conversation = ({
 
     // Update the UI state
     if (status) {
-      const liked = isDisliked.filter((i) => i !== question);
-      setIsDisliked(liked);
-      setIsLiked((current) => [...current, question]);
-      localStorage.setItem("VADisLiked", JSON.stringify(liked));
-      localStorage.setItem("VALiked", JSON.stringify([...isLiked, question]));
+      // const liked = isDisliked.filter((i) => i !== question);
+      // setIsDisliked(liked);
+      // setIsLiked((current) => [...current, question]);
+      // localStorage.setItem("VADisLiked", JSON.stringify(liked));
+      // localStorage.setItem("VALiked", JSON.stringify([...isLiked, question]));
+      setFeedback({ question, answer, index, status });
+      localStorage.setItem(
+        "VAFeedback",
+        JSON.stringify({ question, answer, index, status })
+      );
     }
     if (!status) {
-      const notliked = isLiked.filter((i) => i !== question);
-      setIsLiked(notliked);
-      setIsDisliked((current) => [...current, question]);
-      localStorage.setItem("VALiked", JSON.stringify(notliked));
+      // const notliked = isLiked.filter((i) => i !== question);
+      // setIsLiked(notliked);
+      // setIsDisliked((current) => [...current, question]);
+      // localStorage.setItem("VALiked", JSON.stringify(notliked));
+      // localStorage.setItem(
+      //   "VADisLiked",
+      //   JSON.stringify([...isDisliked, question])
+      // );
+      setFeedback({ question, answer, index, status });
       localStorage.setItem(
-        "VADisLiked",
-        JSON.stringify([...isDisliked, question])
+        "VAFeedback",
+        JSON.stringify({ question, answer, index, status })
       );
     }
   };
@@ -170,17 +180,24 @@ const Conversation = ({
     }
   }, [responseHandeler]);
 
-  useEffect(() => {
-    const liked = JSON.parse(localStorage.getItem("VALiked"));
-    const notLiked = JSON.parse(localStorage.getItem("VADisLiked"));
-    if (liked) {
-      setIsLiked(liked);
-    }
+  // useEffect(() => {
+  //   const liked = JSON.parse(localStorage.getItem("VALiked"));
+  //   const notLiked = JSON.parse(localStorage.getItem("VADisLiked"));
+  //   if (liked) {
+  //     setIsLiked(liked);
+  //   }
 
-    if (notLiked) {
-      setIsDisliked(notLiked);
+  //   if (notLiked) {
+  //     setIsDisliked(notLiked);
+  //   }
+  // }, [isLiked.length, isDisliked.length]);
+  useEffect(() => {
+    const feedbacks = JSON.parse(localStorage.getItem("VAFeedback"));
+    if (feedbacks) {
+      const newFeedbacks = { ...feedbacks, index: feedbacks.index - 1 };
+      setFeedback(newFeedbacks);
     }
-  }, [isLiked.length, isDisliked.length]);
+  }, [feedback.question]);
 
   const sanitizeData = (data) => {
     const parser = new DOMParser();
@@ -290,12 +307,26 @@ const Conversation = ({
                   <div className="reaction">
                     <img
                       onClick={() => handleLikeDislike(chat, true, index)}
-                      src={isLiked.includes(chat[0]) ? liked : like}
+                      src={
+                        feedback.status === true &&
+                        feedback.question === chat[0] &&
+                        feedback.answer === chat[1]
+                          ? // feedback.index === index
+                            liked
+                          : like
+                      }
                       alt=""
                     />
                     <img
                       onClick={() => handleLikeDislike(chat, false, index)}
-                      src={isDisliked.includes(chat[0]) ? disliked : dislike}
+                      src={
+                        feedback.status === false &&
+                        feedback.question === chat[0] &&
+                        feedback.answer === chat[1]
+                          ? // feedback.index === index
+                            disliked
+                          : dislike
+                      }
                       alt=""
                     />
                   </div>
