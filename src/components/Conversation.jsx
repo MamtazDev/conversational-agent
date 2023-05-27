@@ -304,32 +304,34 @@ const Conversation = ({
                     }}
                   /> */}
 
-                  <div className="reaction">
-                    <img
-                      onClick={() => handleLikeDislike(chat, true, index)}
-                      src={
-                        feedback.status === true &&
-                        feedback.question === chat[0] &&
-                        feedback.answer === chat[1]
-                          ? // feedback.index === index
-                            liked
-                          : like
-                      }
-                      alt=""
-                    />
-                    <img
-                      onClick={() => handleLikeDislike(chat, false, index)}
-                      src={
-                        feedback.status === false &&
-                        feedback.question === chat[0] &&
-                        feedback.answer === chat[1]
-                          ? // feedback.index === index
-                            disliked
-                          : dislike
-                      }
-                      alt=""
-                    />
-                  </div>
+                  {history.length - 1 === index && (
+                    <div className="reaction">
+                      <img
+                        onClick={() => handleLikeDislike(chat, true, index)}
+                        src={
+                          feedback.status === true &&
+                          feedback.question === chat[0] &&
+                          feedback.answer === chat[1]
+                            ? // feedback.index === index
+                              liked
+                            : like
+                        }
+                        alt=""
+                      />
+                      <img
+                        onClick={() => handleLikeDislike(chat, false, index)}
+                        src={
+                          feedback.status === false &&
+                          feedback.question === chat[0] &&
+                          feedback.answer === chat[1]
+                            ? // feedback.index === index
+                              disliked
+                            : dislike
+                        }
+                        alt=""
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
