@@ -111,7 +111,7 @@ const Conversation = ({
         "Content-Type": "application/json",
         "VAAS-API-Key": apiKey,
       },
-      body: JSON.stringify({ data: newVassHistory }),
+      body: JSON.stringify({ vaas_sid, question, answer, feedback }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -123,21 +123,27 @@ const Conversation = ({
       });
   };
 
-  const handleLikeDislike = (feedback, status, index) => {
+  const handleLikeDislike = (feedbacks, status, index) => {
     const vaasSid = vaasId;
 
-    const question = feedback[0];
-    const answer = feedback[1];
+    const question = feedbacks[0];
+    const answer = feedbacks[1];
+    const apiUrl = `https://testenv.innobyteslab.com/vaas/history/`;
 
-    const apiUrl = `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${status}`;
-    const successMessage = status ? "Like success:" : "Dislike success:";
-    const errorMessage = status ? "Like error:" : "Dislike error:";
+    // const apiUrl = `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${status}`;
+
+    // const successMessage = status ? "Like success:" : "Dislike success:";
+    // const errorMessage = status ? "Like error:" : "Dislike error:";
+    const vaas_sid = vaasId;
+    const feedback = status;
 
     updateData(
       // "https://testenv.innobyteslab.com/vaas/history/",
       apiUrl,
-      successMessage,
-      errorMessage
+      vaas_sid,
+      question,
+      answer,
+      feedback
     );
 
     // Update the UI state
@@ -216,18 +222,25 @@ const Conversation = ({
           <img src={aiFace} alt="" />
 
           {loading ? (
-            <p>
-              <img
-                className="loading"
-                width={30}
-                height={30}
-                src={load}
-                alt=""
-              />
-            </p>
+            <div
+              style={{
+                borderTop: `4px solid ${
+                  config.spinner_color ? config.spinner_color : ""
+                }`,
+              }}
+              className="loading "
+            ></div>
           ) : (
             initialAnswer && (
               <p
+                style={{
+                  backgroundColor: config.vaas_response_bg_color
+                    ? config.vaas_response_bg_color
+                    : "",
+                  color: config.vaas_response_text_color
+                    ? config.vaas_response_text_color
+                    : "",
+                }}
                 dangerouslySetInnerHTML={{
                   __html: sanitizeData(initialAnswer),
                 }}
@@ -273,21 +286,20 @@ const Conversation = ({
                   <img src={aiFace} alt="" />
 
                   {loading && lastElement === chat ? (
-                    <p>
-                      <img
-                        className="loading"
-                        width={30}
-                        height={30}
-                        src={load}
-                        alt=""
-                      />
-                    </p>
+                    <div
+                      style={{
+                        borderTop: `4px solid ${
+                          config.spinner_color ? config.spinner_color : ""
+                        }`,
+                      }}
+                      className="loading "
+                    ></div>
                   ) : (
                     <p
                       style={{
                         backgroundColor: config.vaas_response_bg_color
                           ? config.vaas_response_bg_color
-                          : "#6240B1",
+                          : "",
                         color: config.vaas_response_text_color
                           ? config.vaas_response_text_color
                           : "",

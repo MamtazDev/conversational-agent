@@ -17,11 +17,11 @@ const Header = ({
     setDropdown(content);
 
     if (content === "Detailed Response") {
-      setText("Please provide  detail answers");
+      setText("Please provide detailed answers");
       setResponseHandeler("dt");
     }
     if (content === "Short Response") {
-      setText("Please provide  short answers");
+      setText("Please provide short answers");
       setResponseHandeler("sh");
     }
   };

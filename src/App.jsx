@@ -7,6 +7,7 @@ import messenger from "./assets/ai-face.png";
 
 function App() {
   const [display, setDisplay] = useState(false);
+  const [clicked, setClicked] = useState(false);
   const [config, setConfig] = useState([]);
   const [vaasId, setVaasId] = useState(null);
   const [initialAnswer, setinitialAnswer] = useState(null);
@@ -23,7 +24,8 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setVaasId("Vas_id", data.vaas_sid);
+        setVaasId(data.vaas_sid);
+        setClicked(true);
         setinitialAnswer(data.answer);
         setLoading(false);
       });
@@ -31,7 +33,9 @@ function App() {
 
   const chatHandler = () => {
     const url = "https://testenv.innobyteslab.com/vaas/";
-    initialApi(url);
+    if (!clicked) {
+      initialApi(url);
+    }
   };
 
   useEffect(() => {
