@@ -24,6 +24,7 @@ const Conversation = ({
   text,
   responseHandeler,
   setResponseHandeler,
+  initialLoading,
 }) => {
   const [isLiked, setIsLiked] = useState([]);
   const [isDisliked, setIsDisliked] = useState([]);
@@ -221,7 +222,7 @@ const Conversation = ({
         <div className="answer">
           <img src={aiFace} alt="" />
 
-          {loading ? (
+          {initialLoading ? (
             <div
               style={{
                 borderTop: `4px solid ${

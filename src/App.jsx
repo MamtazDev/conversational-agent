@@ -12,22 +12,25 @@ function App() {
   const [vaasId, setVaasId] = useState(null);
   const [initialAnswer, setinitialAnswer] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(false);
+
   const [text, setText] = useState("");
   const [responseHandeler, setResponseHandeler] = useState();
 
   const initialApi = (Base_api) => {
-    setLoading(true);
-    fetch(Base_api, {
+    setInitialLoading(true);
+    fetch("https://testenv.innobyteslab.com/vaas/", {
       headers: {
         "VAAS-API-Key": "test-x0848bd789fjk13",
       },
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data,"initial api");
         setVaasId(data.vaas_sid);
         setClicked(true);
         setinitialAnswer(data.answer);
-        setLoading(false);
+        setInitialLoading(false);
       });
   };
 
@@ -73,6 +76,7 @@ function App() {
               setVaasId={setVaasId}
               initialAnswer={initialAnswer}
               setinitialAnswer={setinitialAnswer}
+              initialLoading={initialLoading}
               text={text}
               setText={setText}
               responseHandeler={responseHandeler}
