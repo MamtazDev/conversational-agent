@@ -105,7 +105,7 @@ const Conversation = ({
   };
   const lastElement = history[history.length - 1];
 
-  const updateData = (apiUrl, successMessage, errorMessage) => {
+  const updateData = (apiUrl, vaas_sid, question, answer, feedback) => {
     fetch(apiUrl, {
       method: "PUT",
       headers: {
@@ -116,7 +116,9 @@ const Conversation = ({
     })
       .then((response) => response.json())
       .then((data) => {
-        setVaasHistory(data.history);
+        // console.log(successMessage, "mohi");
+        console.log(data, "updateData");
+        // setVaasHistory(data.history);
         setNewVassHistory("");
       })
       .catch((error) => {
@@ -125,14 +127,18 @@ const Conversation = ({
   };
 
   const handleLikeDislike = (feedbacks, status, index) => {
-    const vaasSid = vaasId;
+    // const vaasSid = vaasId;
+
+    // console.log(feedback[0], feedback[1])
 
     const question = feedbacks[0];
     const answer = feedbacks[1];
-    const apiUrl = `https://testenv.innobyteslab.com/vaas/history/`;
+
+    // console.log(feedback, "feedback");
 
     // const apiUrl = `https://testenv.innobyteslab.com/vaas/?vaas_sid=${vaasSid}&question=${question}&answer=${answer}&feedback=${status}`;
-
+    const apiUrl = `https://testenv.innobyteslab.com/vaas/history/`;
+    // const successMessage = status ? "Like success:" : "Dislike success:";
     // const successMessage = status ? "Like success:" : "Dislike success:";
     // const errorMessage = status ? "Like error:" : "Dislike error:";
     const vaas_sid = vaasId;
@@ -152,6 +158,10 @@ const Conversation = ({
       // const liked = isDisliked.filter((i) => i !== question);
       // setIsDisliked(liked);
       // setIsLiked((current) => [...current, question]);
+      // setIsLiked({ question, answer, index });
+      // if (isDisliked.question === question && isDisliked.answer === answer) {
+      //   setIsDisliked("");
+      // }
       // localStorage.setItem("VADisLiked", JSON.stringify(liked));
       // localStorage.setItem("VALiked", JSON.stringify([...isLiked, question]));
       setFeedback({ question, answer, index, status });
@@ -164,11 +174,16 @@ const Conversation = ({
       // const notliked = isLiked.filter((i) => i !== question);
       // setIsLiked(notliked);
       // setIsDisliked((current) => [...current, question]);
+      // setIsDisliked({ question, answer, index });
+      // if (isLiked.question === question && isLiked.answer === answer) {
+      //   setIsLiked("");
+      // }
       // localStorage.setItem("VALiked", JSON.stringify(notliked));
       // localStorage.setItem(
       //   "VADisLiked",
       //   JSON.stringify([...isDisliked, question])
       // );
+
       setFeedback({ question, answer, index, status });
       localStorage.setItem(
         "VAFeedback",
