@@ -25,15 +25,17 @@ const Conversation = ({
   responseHandeler,
   setResponseHandeler,
   initialLoading,
+  history, setHistory
 }) => {
   const [isLiked, setIsLiked] = useState([]);
   const [isDisliked, setIsDisliked] = useState([]);
   const [vassHistory, setVaasHistory] = useState([]);
-  const [history, setHistory] = useState([]);
+
   const [newVassHistory, setNewVassHistory] = useState("");
   const [apiKey, setApiKey] = useState("test-x0848bd789fjk13");
   const [feedback, setFeedback] = useState("");
   const textareaRef = useRef(null);
+  const [response, setResponse]=useState("")
 
   const chatContainerRef = useRef(null);
 
@@ -95,7 +97,9 @@ const Conversation = ({
     fetch("https://testenv.innobyteslab.com/vaas/history/", requestOptions)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data,"jfklsklfkldsf")
         setHistory(data.history);
+        setResponse(data.answer)
         setNewVassHistory("");
         setLoading(false);
         setText("");
@@ -231,6 +235,9 @@ const Conversation = ({
     return doc.body.innerHTML;
   };
 
+  console.log(response,"responose")
+  console.log(history,"hisssss")
+
   return (
     <div className="conversation">
       <div className="container">
@@ -281,7 +288,7 @@ const Conversation = ({
             history?.map((chat, index) => (
               <div key={index}>
                 <div className="question">
-                  {chat[0] === "Please provide  detail answers" ||
+                  {chat[0] === "Please provide  detailed answers" ||
                   chat[0] === "Please provide  short answers" ? (
                     ""
                   ) : (
@@ -291,7 +298,7 @@ const Conversation = ({
                       }}
                     />
                   )}
-                  {chat[0] === "Please provide  detail answers" ||
+                  {chat[0] === "Please provide  detailed answers" ||
                   chat[0] === "Please provide  short answers" ? (
                     ""
                   ) : (
@@ -311,7 +318,10 @@ const Conversation = ({
                       className="loading "
                     ></div>
                   ) : (
-                    <p
+                    
+                     (chat[0] === "Please provide  detailed answers" ||
+                      chat[0] === "Please provide  short answers") ? <p>{response}</p>:
+                      <p
                       style={{
                         backgroundColor: config.vaas_response_bg_color
                           ? config.vaas_response_bg_color
@@ -324,6 +334,7 @@ const Conversation = ({
                         __html: sanitizeData(chat[1]),
                       }}
                     />
+                    
                   )}
 
                   {/* <p

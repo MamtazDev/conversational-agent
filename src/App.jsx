@@ -4,6 +4,7 @@ import Conversation from "./components/Conversation";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import messenger from "./assets/ai-face.png";
+import ModalExample from "./Moda";
 
 function App() {
   const [display, setDisplay] = useState(false);
@@ -13,6 +14,7 @@ function App() {
   const [initialAnswer, setinitialAnswer] = useState(null);
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(false);
+  const [history, setHistory] = useState([]);
 
   const [text, setText] = useState("");
   const [responseHandeler, setResponseHandeler] = useState();
@@ -81,6 +83,8 @@ function App() {
               setText={setText}
               responseHandeler={responseHandeler}
               setResponseHandeler={setResponseHandeler}
+              history={history}
+              setHistory={setHistory}
             />
 
             <Footer config={config} />
@@ -98,6 +102,9 @@ function App() {
         src={messenger}
         alt=""
       />
+
+
+      {/* <ModalExample/> */}
     </div>
   );
 }
