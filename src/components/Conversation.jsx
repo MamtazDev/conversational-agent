@@ -202,7 +202,7 @@ const Conversation = ({
 
   useEffect(() => {
     scrollToBottom();
-  }, [history]);
+  }, [history,loading]);
 
   useEffect(() => {
     if (responseHandeler === "sh" || responseHandeler === "dt") {
