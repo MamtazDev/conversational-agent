@@ -25,7 +25,8 @@ const Conversation = ({
   responseHandeler,
   setResponseHandeler,
   initialLoading,
-  history, setHistory
+  history,
+  setHistory,
 }) => {
   const [isLiked, setIsLiked] = useState([]);
   const [isDisliked, setIsDisliked] = useState([]);
@@ -35,7 +36,7 @@ const Conversation = ({
   const [apiKey, setApiKey] = useState("test-x0848bd789fjk13");
   const [feedback, setFeedback] = useState("");
   const textareaRef = useRef(null);
-  const [response, setResponse]=useState("")
+  const [response, setResponse] = useState("");
 
   const chatContainerRef = useRef(null);
 
@@ -97,9 +98,9 @@ const Conversation = ({
     fetch("https://testenv.innobyteslab.com/vaas/history/", requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data,"jfklsklfkldsf")
+        console.log(data, "jfklsklfkldsf");
         setHistory(data.history);
-        setResponse(data.answer)
+        setResponse(data.answer);
         setNewVassHistory("");
         setLoading(false);
         setText("");
@@ -124,6 +125,7 @@ const Conversation = ({
         console.log(data, "updateData");
         // setVaasHistory(data.history);
         setNewVassHistory("");
+        setHistory(data.history);
       })
       .catch((error) => {
         console.error(errorMessage, error);
@@ -235,8 +237,8 @@ const Conversation = ({
     return doc.body.innerHTML;
   };
 
-  console.log(response,"responose")
-  console.log(history,"hisssss")
+  console.log(response, "responose");
+  console.log(history, "hisssss");
 
   return (
     <div className="conversation">
@@ -289,7 +291,8 @@ const Conversation = ({
               <div key={index}>
                 <div className="question">
                   {chat[0] === "Please provide  detailed answers" ||
-                  chat[0] === "Please provide  short answers" ? (
+                  chat[0] === "Please provide  short answers" ||
+                  chat[0] === null ? (
                     ""
                   ) : (
                     <p
@@ -299,7 +302,8 @@ const Conversation = ({
                     />
                   )}
                   {chat[0] === "Please provide  detailed answers" ||
-                  chat[0] === "Please provide  short answers" ? (
+                  chat[0] === "Please provide  short answers" ||
+                  chat[0] === null ? (
                     ""
                   ) : (
                     <img src={user} alt="" />
@@ -317,11 +321,11 @@ const Conversation = ({
                       }}
                       className="loading "
                     ></div>
+                  ) : chat[0] === "Please provide  detailed answers" ||
+                    chat[0] === "Please provide  short answers" ? (
+                    <p>{response}</p>
                   ) : (
-                    
-                     (chat[0] === "Please provide  detailed answers" ||
-                      chat[0] === "Please provide  short answers") ? <p>{response}</p>:
-                      <p
+                    <p
                       style={{
                         backgroundColor: config.vaas_response_bg_color
                           ? config.vaas_response_bg_color
@@ -334,7 +338,6 @@ const Conversation = ({
                         __html: sanitizeData(chat[1]),
                       }}
                     />
-                    
                   )}
 
                   {/* <p
