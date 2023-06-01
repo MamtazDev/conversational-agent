@@ -110,6 +110,8 @@ const Conversation = ({
   };
   const lastElement = history[history.length - 1];
 
+  console.log(lastElement, "last");
+
   const updateData = (apiUrl, vaas_sid, question, answer, feedback) => {
     fetch(apiUrl, {
       method: "PUT",
@@ -311,8 +313,8 @@ const Conversation = ({
                 </div>
                 <div className="answer">
                   <img src={aiFace} alt="" />
-
-                  {loading && lastElement === chat ? (
+                  {/* 
+                  {loading && history.length - 1 === index ? (
                     <div
                       style={{
                         borderTop: `4px solid ${
@@ -321,9 +323,6 @@ const Conversation = ({
                       }}
                       className="loading "
                     ></div>
-                  ) : chat[0] === "Please provide  detailed answers" ||
-                    chat[0] === "Please provide  short answers" ? (
-                    <p>{response}</p>
                   ) : (
                     <p
                       style={{
@@ -338,13 +337,21 @@ const Conversation = ({
                         __html: sanitizeData(chat[1]),
                       }}
                     />
-                  )}
+                  )} */}
 
-                  {/* <p
-                    dangerouslySetInnerHTML={{
-                      __html: chat[1],
+                  <p
+                    style={{
+                      backgroundColor: config.vaas_response_bg_color
+                        ? config.vaas_response_bg_color
+                        : "",
+                      color: config.vaas_response_text_color
+                        ? config.vaas_response_text_color
+                        : "",
                     }}
-                  /> */}
+                    dangerouslySetInnerHTML={{
+                      __html: sanitizeData(chat[1]),
+                    }}
+                  />
 
                   {history.length - 1 === index && (
                     <div className="reaction">
@@ -377,6 +384,19 @@ const Conversation = ({
                 </div>
               </div>
             ))}
+          {loading && (
+            <div className="answer">
+              <img src={aiFace} alt="" />
+              <div
+                style={{
+                  borderTop: `4px solid ${
+                    config.spinner_color ? config.spinner_color : ""
+                  }`,
+                }}
+                className="loading "
+              ></div>
+            </div>
+          )}
         </div>
         <div className="input_field">
           <div className="user_input">
