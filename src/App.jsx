@@ -35,12 +35,12 @@ function App() {
       });
   };
 
-  // const chatHandler = () => {
-  //   const url = "https://testenv.innobyteslab.com/vaas/";
-  //   if (!clicked) {
-  //     initialApi(url);
-  //   }
-  // };
+  const chatHandler = () => {
+    const url = "https://testenv.innobyteslab.com/vaas/";
+    if (!clicked) {
+      initialApi(url);
+    }
+  };
 
   useEffect(() => {
     fetch("https://testenv.innobyteslab.com/vaas/config/", {
@@ -56,6 +56,7 @@ function App() {
 
   return (
     <div>
+         {display && (
       <div className="virtual_agent">
         <Header
           config={config}
@@ -88,8 +89,8 @@ function App() {
           <Footer config={config} />
         </div>
       </div>
-
-      {/* <img
+         )}
+      <img
         width={60}
         onClick={() => {
           setDisplay(!display);
@@ -98,26 +99,9 @@ function App() {
         className="sms_icon img-fluid"
         src={messenger}
         alt=""
-      /> */}
+      />
     </div>
   );
 }
 
 export default App;
-
-
-// module.exports = {
-//   env: { browser: true, es2020: true },
-//   extends: [
-//     'eslint:recommended',
-//     'plugin:react/recommended',
-//     'plugin:react/jsx-runtime',
-//     'plugin:react-hooks/recommended',
-//   ],
-//   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-//   settings: { react: { version: '18.2' } },
-//   plugins: ['react-refresh'],
-//   rules: {
-//     'react-refresh/only-export-components': 'warn',
-//   },
-// }

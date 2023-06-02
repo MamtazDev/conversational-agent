@@ -239,16 +239,6 @@ const Conversation = ({
     return doc.body.innerHTML;
   };
 
-  const handleKeyDown = (e) => {
-    if (text === "") {
-      return;
-    } else {
-      if (e.key === "Enter") {
-        HistoryHandler();
-      }
-    }
-  };
-
   return (
     <div className="conversation">
       <div className="container">
@@ -358,7 +348,7 @@ const Conversation = ({
                     }}
                   />
 
-                  {/* {history.length - 1 === index && (
+                  {history.length - 1 === index && (
                     <div className="reaction">
                       <img
                         onClick={() => handleLikeDislike(chat, true, index)}
@@ -385,7 +375,7 @@ const Conversation = ({
                         alt=""
                       />
                     </div>
-                  )} */}
+                  )}
                 </div>
               </div>
             ))}
@@ -417,7 +407,6 @@ const Conversation = ({
               ref={textareaRef}
               value={newVassHistory}
               onChange={handleChange}
-              onKeyDown={handleKeyDown}
               placeholder={
                 config.user_input_placeholder
                   ? config.user_input_placeholder
