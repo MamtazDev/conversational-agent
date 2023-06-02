@@ -4,7 +4,6 @@ import Conversation from "./components/Conversation";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import messenger from "./assets/ai-face.png";
-import ModalExample from "./Moda";
 
 function App() {
   const [display, setDisplay] = useState(false);
@@ -105,3 +104,20 @@ function App() {
 }
 
 export default App;
+
+
+// module.exports = {
+//   env: { browser: true, es2020: true },
+//   extends: [
+//     'eslint:recommended',
+//     'plugin:react/recommended',
+//     'plugin:react/jsx-runtime',
+//     'plugin:react-hooks/recommended',
+//   ],
+//   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+//   settings: { react: { version: '18.2' } },
+//   plugins: ['react-refresh'],
+//   rules: {
+//     'react-refresh/only-export-components': 'warn',
+//   },
+// }

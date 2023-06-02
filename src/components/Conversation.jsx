@@ -202,7 +202,7 @@ const Conversation = ({
 
   useEffect(() => {
     scrollToBottom();
-  }, [history,loading]);
+  }, [history, loading]);
 
   useEffect(() => {
     if (responseHandeler === "sh" || responseHandeler === "dt") {
@@ -239,8 +239,15 @@ const Conversation = ({
     return doc.body.innerHTML;
   };
 
-  console.log(response, "responose");
-  console.log(history, "hisssss");
+  const handleKeyDown = (e) => {
+    if (text === "") {
+      return;
+    } else {
+      if (e.key === "Enter") {
+        HistoryHandler();
+      }
+    }
+  };
 
   return (
     <div className="conversation">
@@ -258,21 +265,19 @@ const Conversation = ({
               className="loading "
             ></div>
           ) : (
-            initialAnswer && (
-              <p
-                style={{
-                  backgroundColor: config.vaas_response_bg_color
-                    ? config.vaas_response_bg_color
-                    : "",
-                  color: config.vaas_response_text_color
-                    ? config.vaas_response_text_color
-                    : "",
-                }}
-                dangerouslySetInnerHTML={{
-                  __html: sanitizeData(initialAnswer),
-                }}
-              />
-            )
+            <p
+              style={{
+                backgroundColor: config.vaas_response_bg_color
+                  ? config.vaas_response_bg_color
+                  : "",
+                color: config.vaas_response_text_color
+                  ? config.vaas_response_text_color
+                  : "",
+              }}
+              dangerouslySetInnerHTML={{
+                __html: sanitizeData(config.greeting),
+              }}
+            />
           )}
           {/* <div className="reaction">
             <img
@@ -353,7 +358,7 @@ const Conversation = ({
                     }}
                   />
 
-                  {history.length - 1 === index && (
+                  {/* {history.length - 1 === index && (
                     <div className="reaction">
                       <img
                         onClick={() => handleLikeDislike(chat, true, index)}
@@ -380,7 +385,7 @@ const Conversation = ({
                         alt=""
                       />
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             ))}
@@ -412,6 +417,7 @@ const Conversation = ({
               ref={textareaRef}
               value={newVassHistory}
               onChange={handleChange}
+              onKeyDown={handleKeyDown}
               placeholder={
                 config.user_input_placeholder
                   ? config.user_input_placeholder
