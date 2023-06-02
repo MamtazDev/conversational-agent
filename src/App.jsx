@@ -28,7 +28,7 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data,"initial api");
+        console.log(data, "initial api");
         setVaasId(data.vaas_sid);
         setClicked(true);
         setinitialAnswer(data.answer);
@@ -36,12 +36,12 @@ function App() {
       });
   };
 
-  const chatHandler = () => {
-    const url = "https://testenv.innobyteslab.com/vaas/";
-    if (!clicked) {
-      initialApi(url);
-    }
-  };
+  // const chatHandler = () => {
+  //   const url = "https://testenv.innobyteslab.com/vaas/";
+  //   if (!clicked) {
+  //     initialApi(url);
+  //   }
+  // };
 
   useEffect(() => {
     fetch("https://testenv.innobyteslab.com/vaas/config/", {
@@ -57,42 +57,40 @@ function App() {
 
   return (
     <div>
-      {display && (
-        <div className="virtual_agent">
-          <Header
+      <div className="virtual_agent">
+        <Header
+          config={config}
+          display={display}
+          setDisplay={setDisplay}
+          setText={setText}
+          responseHandeler={responseHandeler}
+          setResponseHandeler={setResponseHandeler}
+        />
+        <div>
+          <Conversation
             config={config}
+            loading={loading}
+            setLoading={setLoading}
             display={display}
             setDisplay={setDisplay}
+            vaasId={vaasId}
+            setVaasId={setVaasId}
+            initialAnswer={initialAnswer}
+            setinitialAnswer={setinitialAnswer}
+            initialLoading={initialLoading}
+            text={text}
             setText={setText}
             responseHandeler={responseHandeler}
             setResponseHandeler={setResponseHandeler}
+            history={history}
+            setHistory={setHistory}
           />
-          <div>
-            <Conversation
-              config={config}
-              loading={loading}
-              setLoading={setLoading}
-              display={display}
-              setDisplay={setDisplay}
-              vaasId={vaasId}
-              setVaasId={setVaasId}
-              initialAnswer={initialAnswer}
-              setinitialAnswer={setinitialAnswer}
-              initialLoading={initialLoading}
-              text={text}
-              setText={setText}
-              responseHandeler={responseHandeler}
-              setResponseHandeler={setResponseHandeler}
-              history={history}
-              setHistory={setHistory}
-            />
 
-            <Footer config={config} />
-          </div>
+          <Footer config={config} />
         </div>
-      )}
+      </div>
 
-      <img
+      {/* <img
         width={60}
         onClick={() => {
           setDisplay(!display);
@@ -101,10 +99,7 @@ function App() {
         className="sms_icon img-fluid"
         src={messenger}
         alt=""
-      />
-
-
-      {/* <ModalExample/> */}
+      /> */}
     </div>
   );
 }
